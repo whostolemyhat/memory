@@ -9,8 +9,10 @@ app.playState = {
         this.windowWidth = 640;
         this.windowHeight = 480;
         this.revealSpeed = 8;
+
         this.boxSize = 40;
         this.gapSize = 10;
+
         this.boardWidth = 10;
         this.boardHeight = 7;
 
@@ -44,7 +46,7 @@ app.playState = {
 
         game.input.onDown.add(this.mouseClick);
         this.board = this.getRandomisedBoard();
-        console.log(this.board);
+        console.log(_.flatten(this.board));
 
         this.drawBoard(this.board, []);
     },
@@ -67,18 +69,16 @@ app.playState = {
 
         // double the icon array so there's enough!
         icons = icons.concat(icons);
-        this.shuffleArray(icons);
+        _.shuffle(icons);
 
         var board = [];
         for(var x = 0; x < this.boardWidth; x++) {
             var col = [];
             for(var y = 0; y < this.boardHeight; y++) {
+                var icon = icons.pop();
                 var tile = new Tile();
                 tile.x = x;
                 tile.y = y;
-
-                var icon = icons.pop();
-                console.log(icon);
                 tile.shape = icon[0];
                 tile.colour = icon[1];
 
@@ -124,8 +124,6 @@ app.playState = {
     },
 
     getShapeAndColour: function(board, x, y) {
-        console.log(board, x, y);
-        console.log(board[x], board[x][y]);
         return {
             shape: board[x][y][0],
             colour: board[x][y][1]
@@ -145,45 +143,40 @@ app.playState = {
     },
 
     getBoxAtPos: function(x, y) {
-        for(var boxX = 0; boxX < this.boardWidth; boxX++) {
-            for(var boxY = 0; boxY < this.boardHeight; boxY++) {
-                var pos = boxCoords(boxX, boxY);
-                // var boxRect = new Rectangle(pos.left, pos.top, this.boxSize, this.boxSize);
-                // var testRect = new Rectangle(x, y, this.boxSize, this.boxSize);
-                
-                // pseudo code
-                _.each(_.flatten(board), function(tile) {
-                    console.log(tile);
-                });
-                // for tile in bigListOfTiles:
-                //     // tile is Phaser.Rectangle
-                //     if(tile.contains(x, y) {
-                //         return tile
-                //     });
+        _.each(_.flatten(board), function(tile) {
+            console.log(tile);
+            var pos = boxCoords(tile.x, tile.y);
+
+            var collisionRect = new Phaser.Rectangle(pos.left, pos.top, this.boxSize, this.boxSize);
+            if(collisionRect.contains(x, y)) {
+                return tile;
             }
-        }
+        });
+
+
+        // for(var boxX = 0; boxX < this.boardWidth; boxX++) {
+        //     for(var boxY = 0; boxY < this.boardHeight; boxY++) {
+        //         var pos = boxCoords(boxX, boxY);
+        //         // var boxRect = new Rectangle(pos.left, pos.top, this.boxSize, this.boxSize);
+        //         // var testRect = new Rectangle(x, y, this.boxSize, this.boxSize);
+                
+        //         // pseudo code
+        //         // for tile in bigListOfTiles:
+        //         //     // tile is Phaser.Rectangle
+        //         //     if(tile.contains(x, y) {
+        //         //         return tile
+        //         //     });
+        //     }
+        // }
     },
 
     mouseMove: function(pointer, x, y) {
-        console.log(pointer, x, y);
+        // console.log(pointer, x, y);
+        getBoxAtPos(x, y);
     },
 
     mouseClick: function(pointer, event) {
         console.log('click');
-        console.log(arguments);
-    },
-
-    /**
-     * Randomize array element order in-place.
-     * Using Fisher-Yates shuffle algorithm.
-     */
-    shuffleArray: function(array) {
-        for (var i = array.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            var temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
-        return array;
+        // console.log(arguments);
     }
 };
