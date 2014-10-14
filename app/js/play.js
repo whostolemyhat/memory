@@ -8,7 +8,7 @@ app.playState = {
 
         this.windowWidth = 800;
         this.windowHeight = 640;
-        this.revealSpeed = 1;
+        // this.revealSpeed = 100;
 
         this.boxSize = 60;
         this.gapSize = 10;
@@ -49,37 +49,24 @@ app.playState = {
 
         game.stage.backgroundColor = this.backgroundColour;
 
-        this.highlightColour = this.navyBlue;
+        // this.highlightColour = this.navyBlue;
 
-        game.input.addMoveCallback(this.mouseMove);
+        // game.input.addMoveCallback(this.mouseMove);
 
-        game.input.onDown.add(this.mouseClick);
+        // game.input.onDown.add(this.mouseClick);
         this.board = this.getRandomisedBoard();
-        this.tiles = _.flatten(this.board);
+        // this.tiles = _.flatten(this.board);
 
-        this.mousePos = {
-            x: 0,
-            y: 0
-        };
+        // this.mousePos = {
+        //     x: 0,
+        //     y: 0
+        // };
 
-        this.revealed = [];
-        this.firstSelected;
-        this.secondSelected;
+        // this.revealed = [];
 
         this.drawBoard(this.board, this.revealed);
-    },
 
-    update: function() {
-        // graphics test
-        // var g = game.add.graphics(0, 0);
-        // g.lineStyle(1, '#fff', 1);
-        // g.drawRect(20, 20, this.boxSize, this.boxSize);
-        // this.drawBoard(this.board, []);
-        // this.drawHighlight();
-    },
-
-    render: function() {
-        // game.debug.pointer(game.input.activePointer);
+        console.log(Phaser.Color.getColor(74,72,73));
     },
 
     getRandomisedBoard: function() {
@@ -115,32 +102,37 @@ app.playState = {
     },
 
     drawBoard: function(board, revealed) {
-        // console.log('draw', board, revealed);
-
         var self = app.playState;
 
-        var g = game.add.graphics(0, 0);
-        // width, colour, alpha
+        // var g = game.add.graphics(0, 0);
+        // // width, colour, alpha
 
-        _.each(_.flatten(self.board), function(tile) {
-            var coords = self.boxCoords(tile.x, tile.y);
+        _.each(_.flatten(board), function(tile) {
+            var coords = self.boxCoordsInPixels(tile.x, tile.y);
+            console.log(coords);
 
-            if(tile.revealed) {
-                self.drawIcon(tile);
-            } else {
-                g.beginFill(self.boxColour);
-                g.drawRect(coords.left, coords.top, self.boxSize, self.boxSize);
-                g.endFill();
-            }
-
+        //     if(tile.revealed) {
+        //         self.drawIcon(tile);
+        //     } else {
+        //         g.beginFill(self.boxColour);
+        //         g.drawRect(coords.left, coords.top, self.boxSize, self.boxSize);
+        //         g.endFill();
+        //     }
+            tile.sprite = game.add.sprite(coords.x, coords.y, 'box');
+            tile.sprite.tint = Phaser.Color.getColor(74, 72, 73);
+            console.log(tile.sprite);
         });
+
       
     },
 
-    boxCoords: function(x, y) {
+    /**
+    * convert tile coords to pixel screen value
+    */
+    boxCoordsInPixels: function(x, y) {
         return {
-            left: x * (this.boxSize + this.gapSize) + this.xMargin,
-            top: y * (this.boxSize + this.gapSize) + this.yMargin
+            x: x * (this.boxSize + this.gapSize) + this.xMargin,
+            y: y * (this.boxSize + this.gapSize) + this.yMargin
         };
     },
 
@@ -151,78 +143,81 @@ app.playState = {
         };
     },
 
-    drawIcon: function(tile) {
-        var quarter = this.boxSize * 0.25;
-        var half = this.boxSize * 0.5;
-        var coords = this.boxCoords(tile.x, tile.y);
+    // drawIcon: function(tile) {
+    //     var quarter = this.boxSize * 0.25;
+    //     var half = this.boxSize * 0.5;
+    //     var coords = this.boxCoords(tile.x, tile.y);
 
-        var g = game.add.graphics(0, 0);
+    //     var g = game.add.graphics(0, 0);
 
-        switch(tile.shape) {
-        case 'doughnut':
-            g.beginFill(tile.colour);
-            g.drawCircle(coords.left + half, coords.top + half, half);
-            g.endFill();
-            g.beginFill(this.highlightColour, 1);
-            g.drawCircle(coords.left + half, coords.top + half, quarter);
-            g.endFill();
-            break;
+    //     switch(tile.shape) {
+    //     case 'doughnut':
+    //         g.beginFill(tile.colour);
+    //         g.drawCircle(coords.left + half, coords.top + half, half);
+    //         g.endFill();
+    //         g.beginFill(this.highlightColour, 1);
+    //         g.drawCircle(coords.left + half, coords.top + half, quarter);
+    //         g.endFill();
+    //         break;
 
-        case 'square':
-            g.beginFill(tile.colour);
-            g.drawRect(coords.left + (this.boxSize * 0.125), coords.top + (this.boxSize * 0.125), this.boxSize * 0.75, this.boxSize * 0.75);
-            g.endFill();
-            break;
+    //     case 'square':
+    //         g.beginFill(tile.colour);
+    //         g.drawRect(coords.left + (this.boxSize * 0.125), coords.top + (this.boxSize * 0.125), this.boxSize * 0.75, this.boxSize * 0.75);
+    //         g.endFill();
+    //         break;
 
-        case 'diamond':
-            g.beginFill(tile.colour);
-            g.moveTo(coords.left + half, coords.top + 1);
-            g.lineTo((coords.left + this.boxSize) - 1, coords.top + half);
-            g.lineTo(coords.left + half, (coords.top + this.boxSize - 1));
-            g.lineTo(coords.left + 1, coords.top + half);
-            g.endFill();
-            break;
+    //     case 'diamond':
+    //         g.beginFill(tile.colour);
+    //         g.moveTo(coords.left + half, coords.top + 1);
+    //         g.lineTo((coords.left + this.boxSize) - 1, coords.top + half);
+    //         g.lineTo(coords.left + half, (coords.top + this.boxSize - 1));
+    //         g.lineTo(coords.left + 1, coords.top + half);
+    //         g.endFill();
+    //         break;
 
-        case 'oval':
-            g.beginFill(tile.colour);
-            g.drawEllipse(coords.left + half, coords.top + half, half - (quarter / 2), quarter);
-            g.endFill();
-            break;
+    //     case 'oval':
+    //         g.beginFill(tile.colour);
+    //         g.drawEllipse(coords.left + half, coords.top + half, half - (quarter / 2), quarter);
+    //         g.endFill();
+    //         break;
 
-        case 'lines':
-            g.lineStyle(5, tile.colour, 1);
-            g.moveTo(coords.left + quarter, coords.top + quarter);
-            g.lineTo(coords.left + (quarter * 3), coords.top + quarter);
-            g.moveTo(coords.left + quarter, coords.top + half);
-            g.lineTo(coords.left + (quarter * 3), coords.top + half);
-            g.moveTo(coords.left + quarter, coords.top + (quarter * 3));
-            g.lineTo(coords.left + (quarter * 3), coords.top + (quarter * 3));
-            break;
+    //     case 'lines':
+    //         g.lineStyle(5, tile.colour, 1);
+    //         g.moveTo(coords.left + quarter, coords.top + quarter);
+    //         g.lineTo(coords.left + (quarter * 3), coords.top + quarter);
+    //         g.moveTo(coords.left + quarter, coords.top + half);
+    //         g.lineTo(coords.left + (quarter * 3), coords.top + half);
+    //         g.moveTo(coords.left + quarter, coords.top + (quarter * 3));
+    //         g.lineTo(coords.left + (quarter * 3), coords.top + (quarter * 3));
+    //         break;
 
-        default:
-            g.beginFill(tile.colour);
-            g.drawCircle(coords.left + half, coords.top + half, half);
-            g.endFill();
-            break;
+    //     default:
+    //         g.beginFill(tile.colour);
+    //         g.drawCircle(coords.left + half, coords.top + half, half);
+    //         g.endFill();
+    //         break;
             
-        }
+    //     }
 
-    },
+    // },
 
-    drawHighlight: function(tile, revealed) {
-        var self = app.playState;
-        if(!tile) {
-            tile = self.getBoxAtPos(self.mousePos.x, self.mousePos.y);
-        }
-        var coords = self.boxCoords(tile.x, tile.y);
+    // drawHighlight: function(tile, revealed) {
+    //     var self = app.playState;
+    //     if(!tile) {
+    //         tile = self.getBoxAtPos(self.mousePos.x, self.mousePos.y);
+    //     }
+    //     var coords = self.boxCoords(tile.x, tile.y);
 
-        var g = game.add.graphics(0, 0);
+    //     var g = game.add.graphics(0, 0);
 
-        g.beginFill(self.highlightColour);
-        g.drawRect(coords.left, coords.top, self.boxSize, self.boxSize);
-        g.endFill();
-    },
+    //     g.beginFill(self.highlightColour);
+    //     g.drawRect(coords.left, coords.top, self.boxSize, self.boxSize);
+    //     g.endFill();
+    // },
 
+    /**
+    * Convert pixel coords into the box at that position
+    */
     getBoxAtPos: function(x, y) {
         var self = app.playState;
 
@@ -239,88 +234,90 @@ app.playState = {
         });
     },
 
-    mouseMove: function(pointer, x, y) {
-        var self = app.playState;
-        self.mousePos.x = x;
-        self.mousePos.y = y;
+    // mouseMove: function(pointer, x, y) {
+    //     var self = app.playState;
+    //     self.mousePos.x = x;
+    //     self.mousePos.y = y;
 
-    },
+    // },
 
-    mouseClick: function(pointer, event) {
-        var self = app.playState;
-        // self.drawBoard(self.board, self.revealed);
+    // mouseClick: function(pointer, event) {
+    //     var self = app.playState;
+    //     // self.drawBoard(self.board, self.revealed);
 
-        var tile = self.getBoxAtPos(game.input.x, game.input.y);
+    //     var tile = self.getBoxAtPos(game.input.x, game.input.y);
 
-        if(tile) {
-            tile.revealed = true;
-            // self.drawIcon(tile);
-            self.revealed.push(tile);
+    //     if(tile) {
+    //         tile.revealed = true;
+    //         // self.drawIcon(tile);
+    //         self.revealed.push(tile);
 
-            self.coverBoxesAnimation([tile]);
+    //         self.coverBoxesAnimation([tile]);
 
-            if(self.revealed.length === 2) {
-                console.log(self.revealed);
+    //         if(self.revealed.length === 2) {
+    //             console.log(self.revealed);
 
-                if((self.revealed[0].shape === self.revealed[1].shape) && (self.revealed[0].colour === self.revealed[1].colour)) {
-                    // match!
-                    console.log('match');
-                } else {
-                    console.log('wrong!');
+    //             if((self.revealed[0].shape === self.revealed[1].shape) && (self.revealed[0].colour === self.revealed[1].colour)) {
+    //                 // match!
+    //                 console.log('match');
+    //             } else {
+    //                 console.log('wrong!');
 
-                    for(var i = 0; i < self.revealed.length; i++) {
-                        console.log('resetting');
+    //                 for(var i = 0; i < self.revealed.length; i++) {
+    //                     console.log('resetting');
 
-                        var selectedTile = _.find(_.flatten(self.board), function(tile) {
-                            return tile.id === self.revealed[i].id; //self.matchTile(tile, self.revealed[i]));
-                        });
+    //                     var selectedTile = _.find(_.flatten(self.board), function(tile) {
+    //                         return tile.id === self.revealed[i].id; //self.matchTile(tile, self.revealed[i]));
+    //                     });
 
-                        selectedTile.revealed = false;
-                    }
+    //                     selectedTile.revealed = false;
+    //                 }
 
-                    self.coverBoxesAnimation(self.revealed);
-                    self.revealed = [];
-                }
-            }
+    //                 self.coverBoxesAnimation(self.revealed);
+    //                 self.revealed = [];
+    //             }
+    //         }
 
-            // self.drawBoard(self.board, self.revealed);
-        }
+    //         // self.drawBoard(self.board, self.revealed);
+    //     }
 
-    },
+    // },
 
-    matchTile: function(tile, tileToMatch) {
-        return tile.id === tileToMatch.id;
-    },
+    // matchTile: function(tile, tileToMatch) {
+    //     return tile.id === tileToMatch.id;
+    // },
 
-    // boxes = boxes to cover over
-    coverBoxesAnimation: function(boxes) {
-        // i = pixels of cover to draw per frame
-        for(var i = 0; i < this.boxSize; i += this.revealSpeed) {
-            this.drawBoxCovers(boxes, i);
-        }
-    },
+    // // boxes = boxes to cover over
+    // coverBoxesAnimation: function(boxes) {
+    //     // i = pixels of cover to draw per frame
+    //     var timeCheck = game.time.now;
 
-    drawBoxCovers: function(boxes, coverage) {
-        var self = app.playState;
+    //     // for(var i = 0; i < this.boxSize; i++) {
+    //     //     this.drawBoxCovers(boxes, i);
+    //     // }
+    // },
 
-        console.log(coverage);
+    // drawBoxCovers: function(boxes, coverage) {
+    //     var self = app.playState;
 
-        var g = game.add.graphics(0, 0);
+    //     console.log(coverage);
 
-        _.each(boxes, function(tile) {
-            var coords = self.boxCoords(tile.x, tile.y);
+    //     var g = game.add.graphics(0, 0);
 
-            // g.beginFill(self.backgroundColour);
-            g.beginFill(0xff00ff);
-            g.drawRect(coords.left, coords.top, coverage, self.boxSize);
-            g.endFill();
-            // self.drawIcon(tile);
+    //     _.each(boxes, function(tile) {
+    //         var coords = self.boxCoords(tile.x, tile.y);
 
-            // if(coverage > 0) {
-            //     g.beginFill(self.boxColour);
-            //     g.drawRect(coords.left, coords.top, coverage, self.boxSize);
-            //     g.endFill();
-            // }
-        });
-    }
+    //         // g.beginFill(self.backgroundColour);
+    //         g.beginFill(0xff00ff);
+    //         g.drawRect(coords.left, coords.top, coverage, self.boxSize);
+    //         g.endFill();
+    //         // self.drawIcon(tile);
+
+    //         // if(coverage > 0) {
+    //         //     g.beginFill(self.boxColour);
+    //         //     g.drawRect(coords.left, coords.top, coverage, self.boxSize);
+    //         //     g.endFill();
+    //         // }
+    //     });
+    // }
 };

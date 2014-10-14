@@ -25,6 +25,8 @@ app.loadState = {
 
         // load all assets
         game.load.spritesheet('mute', 'img/menu/muteButton.png', 28, 22);
+
+        game.load.image('box', 'img/box.png');
     },
 
     create: function() {
