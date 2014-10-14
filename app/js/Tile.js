@@ -5,5 +5,6 @@ function Tile() {
     this.shape = 'square';
     this.size = 40;
     this.border = 10;
-    this.revealed = true;
+    this.revealed = false;
+    this.id = 0;
 }
