@@ -54,7 +54,6 @@ app.playState = {
 
         // game.input.addMoveCallback(this.mouseMove);
 
-        // game.input.onDown.add(this.mouseClick);
         this.board = this.getRandomisedBoard();
         // this.tiles = _.flatten(this.board);
 
@@ -119,6 +118,8 @@ app.playState = {
             tile.box = game.add.sprite(coords.x, coords.y, 'box');
             tile.box.tint = Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b);
             tile.box.width = 0;
+            tile.box.inputEnabled = true;
+            tile.box.events.onInputOver.add(self.boxClick, this);
         });
 
       
@@ -280,6 +281,14 @@ app.playState = {
     //     }
 
     // },
+
+    boxClick: function(sprite, pointer) {
+        var self = app.playState;
+
+        console.log('clicl', sprite, pointer);
+
+        this.game.add.tween(sprite).to({width: 0}, self.revealSpeed).start();
+    },
 
 
     // // boxes = array of boxes to cover over
