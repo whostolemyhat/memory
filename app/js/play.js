@@ -25,20 +25,20 @@ app.playState = {
         this.square = 'square';
         this.diamond = 'diamond';
 
-        this.fire = Phaser.Color.getColor(214,147,92);
-        this.navyBlue = Phaser.Color.getColor(60, 60, 100);
-        this.white = Phaser.Color.getColor(255, 255, 255);
-        this.brown = Phaser.Color.getColor(185,138,122);
-        this.lilac = Phaser.Color.getColor(170,173,204);
-        this.life = Phaser.Color.getColor(217,200,182);
-        this.peach = Phaser.Color.getColor(242,216,179);
-        this.purple = Phaser.Color.getColor(138,76,124);
-        this.grey = Phaser.Color.getColor(109,127,142);
-        this.russet = Phaser.Color.getColor(174,70,0);
-        this.orange = Phaser.Color.getColor(222,73,30);
-        this.amber = Phaser.Color.getColor(255,149,22);
-        this.darkGrey = Phaser.Color.getColor(74,72,73);
-        this.pink = Phaser.Color.getColor(244,160,170);
+        this.fire = Phaser.Color.createColor(214,147,92); // then call Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b)
+        this.navyBlue = Phaser.Color.createColor(60, 60, 100);
+        this.white = Phaser.Color.createColor(255, 255, 255);
+        this.brown = Phaser.Color.createColor(185,138,122);
+        this.lilac = Phaser.Color.createColor(170,173,204);
+        this.life = Phaser.Color.createColor(217,200,182);
+        this.peach = Phaser.Color.createColor(242,216,179);
+        this.purple = Phaser.Color.createColor(138,76,124);
+        this.grey = Phaser.Color.createColor(109,127,142);
+        this.russet = Phaser.Color.createColor(174,70,0);
+        this.orange = Phaser.Color.createColor(222,73,30);
+        this.amber = Phaser.Color.createColor(255,149,22);
+        this.darkGrey = Phaser.Color.createColor(74,72,73);
+        this.pink = Phaser.Color.createColor(244,160,170);
 
 
         this.allColours = [this.fire, this.brown, this.lilac, this.life, this.purple, this.russet, this.amber, this.pink];
@@ -64,10 +64,11 @@ app.playState = {
 
         // this.revealed = [];
 
+        console.log(this.darkGrey);
         this.drawBoard(this.board, this.revealed);
 
-        console.log(Phaser.Color.getColor(74,72,73));
     },
+
 
     getRandomisedBoard: function() {
         var icons = [];
@@ -119,7 +120,7 @@ app.playState = {
         //         g.endFill();
         //     }
             tile.sprite = game.add.sprite(coords.x, coords.y, 'box');
-            tile.sprite.tint = Phaser.Color.getColor(74, 72, 73);
+            tile.sprite.tint = Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b);
             console.log(tile.sprite);
         });
 
