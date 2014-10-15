@@ -41,7 +41,6 @@ app.playState = {
         this.darkGrey = Phaser.Color.createColor(74,72,73);
         this.pink = Phaser.Color.createColor(244,160,170);
 
-
         this.allColours = [this.fire, this.brown, this.lilac, this.life, this.purple, this.russet, this.amber, this.pink];
         this.allShapes = [this.star, this.rings, this.hex, this.square, this.diamond, this.circle];
 
@@ -50,17 +49,7 @@ app.playState = {
 
         game.stage.backgroundColor = Phaser.Color.getColor(this.backgroundColour.r, this.backgroundColour.g, this.backgroundColour.b);
 
-        // this.highlightColour = this.navyBlue;
-
-        // game.input.addMoveCallback(this.mouseMove);
-
         this.board = this.getRandomisedBoard();
-        // this.tiles = _.flatten(this.board);
-
-        // this.mousePos = {
-        //     x: 0,
-        //     y: 0
-        // };
 
         // this.revealed = [];
 
@@ -142,78 +131,6 @@ app.playState = {
         };
     },
 
-    // drawIcon: function(tile) {
-    //     var quarter = this.boxSize * 0.25;
-    //     var half = this.boxSize * 0.5;
-    //     var coords = this.boxCoords(tile.x, tile.y);
-
-    //     var g = game.add.graphics(0, 0);
-
-    //     switch(tile.shape) {
-    //     case 'doughnut':
-    //         g.beginFill(tile.colour);
-    //         g.drawCircle(coords.left + half, coords.top + half, half);
-    //         g.endFill();
-    //         g.beginFill(this.highlightColour, 1);
-    //         g.drawCircle(coords.left + half, coords.top + half, quarter);
-    //         g.endFill();
-    //         break;
-
-    //     case 'square':
-    //         g.beginFill(tile.colour);
-    //         g.drawRect(coords.left + (this.boxSize * 0.125), coords.top + (this.boxSize * 0.125), this.boxSize * 0.75, this.boxSize * 0.75);
-    //         g.endFill();
-    //         break;
-
-    //     case 'diamond':
-    //         g.beginFill(tile.colour);
-    //         g.moveTo(coords.left + half, coords.top + 1);
-    //         g.lineTo((coords.left + this.boxSize) - 1, coords.top + half);
-    //         g.lineTo(coords.left + half, (coords.top + this.boxSize - 1));
-    //         g.lineTo(coords.left + 1, coords.top + half);
-    //         g.endFill();
-    //         break;
-
-    //     case 'oval':
-    //         g.beginFill(tile.colour);
-    //         g.drawEllipse(coords.left + half, coords.top + half, half - (quarter / 2), quarter);
-    //         g.endFill();
-    //         break;
-
-    //     case 'lines':
-    //         g.lineStyle(5, tile.colour, 1);
-    //         g.moveTo(coords.left + quarter, coords.top + quarter);
-    //         g.lineTo(coords.left + (quarter * 3), coords.top + quarter);
-    //         g.moveTo(coords.left + quarter, coords.top + half);
-    //         g.lineTo(coords.left + (quarter * 3), coords.top + half);
-    //         g.moveTo(coords.left + quarter, coords.top + (quarter * 3));
-    //         g.lineTo(coords.left + (quarter * 3), coords.top + (quarter * 3));
-    //         break;
-
-    //     default:
-    //         g.beginFill(tile.colour);
-    //         g.drawCircle(coords.left + half, coords.top + half, half);
-    //         g.endFill();
-    //         break;
-            
-    //     }
-
-    // },
-
-    // drawHighlight: function(tile, revealed) {
-    //     var self = app.playState;
-    //     if(!tile) {
-    //         tile = self.getBoxAtPos(self.mousePos.x, self.mousePos.y);
-    //     }
-    //     var coords = self.boxCoords(tile.x, tile.y);
-
-    //     var g = game.add.graphics(0, 0);
-
-    //     g.beginFill(self.highlightColour);
-    //     g.drawRect(coords.left, coords.top, self.boxSize, self.boxSize);
-    //     g.endFill();
-    // },
-
     /**
     * Convert pixel coords into the box at that position
     */
@@ -232,13 +149,6 @@ app.playState = {
             return false;
         });
     },
-
-    // mouseMove: function(pointer, x, y) {
-    //     var self = app.playState;
-    //     self.mousePos.x = x;
-    //     self.mousePos.y = y;
-
-    // },
 
     // mouseClick: function(pointer, event) {
     //     var self = app.playState;
@@ -285,9 +195,14 @@ app.playState = {
     boxClick: function(sprite, pointer) {
         var self = app.playState;
 
-        console.log('clicl', sprite, pointer);
+        if(pointer.isDown) {
+            this.game.add.tween(sprite).to({width: 0}, self.revealSpeed).start();
 
-        this.game.add.tween(sprite).to({width: 0}, self.revealSpeed).start();
+            // are there two in revealed?
+            // check match
+        } else {
+            // highlight
+        }
     },
 
 
@@ -295,7 +210,6 @@ app.playState = {
     coverBoxesAnimation: function(tiles) {
         var self = app.playState;
 
-        // tile.box.bringToTop();
         _.each(tiles, function(tile) {
             var delay = (100 * tile.x) + (50 * tile.y);
             console.log(console.log(delay));
@@ -305,27 +219,4 @@ app.playState = {
         });
     },
 
-    // drawBoxCovers: function(boxes, coverage) {
-    //     var self = app.playState;
-
-    //     console.log(coverage);
-
-    //     var g = game.add.graphics(0, 0);
-
-    //     _.each(boxes, function(tile) {
-    //         var coords = self.boxCoords(tile.x, tile.y);
-
-    //         // g.beginFill(self.backgroundColour);
-    //         g.beginFill(0xff00ff);
-    //         g.drawRect(coords.left, coords.top, coverage, self.boxSize);
-    //         g.endFill();
-    //         // self.drawIcon(tile);
-
-    //         // if(coverage > 0) {
-    //         //     g.beginFill(self.boxColour);
-    //         //     g.drawRect(coords.left, coords.top, coverage, self.boxSize);
-    //         //     g.endFill();
-    //         // }
-    //     });
-    // }
 };
