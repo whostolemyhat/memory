@@ -6,24 +6,25 @@ app.playState = {
     create: function() {
         console.log('game running');
 
-        this.windowWidth = 800;
-        this.windowHeight = 640;
-        // this.revealSpeed = 100;
+        this.windowWidth = 320;
+        this.windowHeight = 480;
+        this.revealSpeed = 250; // speed to show/hide in ms
 
         this.boxSize = 60;
         this.gapSize = 10;
 
-        this.boardWidth = 10;
-        this.boardHeight = 7;
+        this.boardWidth = 4;
+        this.boardHeight = 6;
 
         this.xMargin = (this.windowWidth - (this.boardWidth * (this.boxSize + this.gapSize))) / 2;
         this.yMargin = (this.windowHeight - (this.boardHeight * (this.boxSize + this.gapSize))) / 2;
 
-        this.doughnut = 'doughnut';
-        this.oval = 'oval';
-        this.lines = 'lines';
+        this.star = 'star';
+        this.rings = 'rings';
+        this.hex = 'hex';
         this.square = 'square';
         this.diamond = 'diamond';
+        this.circle = 'circle';
 
         this.fire = Phaser.Color.createColor(214,147,92); // then call Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b)
         this.navyBlue = Phaser.Color.createColor(60, 60, 100);
@@ -42,12 +43,12 @@ app.playState = {
 
 
         this.allColours = [this.fire, this.brown, this.lilac, this.life, this.purple, this.russet, this.amber, this.pink];
-        this.allShapes = [this.doughnut, this.oval, this.lines, this.square, this.diamond];
+        this.allShapes = [this.star, this.rings, this.hex, this.square, this.diamond, this.circle];
 
         this.boxColour = this.darkGrey;
         this.backgroundColour = this.peach;
 
-        game.stage.backgroundColor = this.backgroundColour;
+        game.stage.backgroundColor = Phaser.Color.getColor(this.backgroundColour.r, this.backgroundColour.g, this.backgroundColour.b);
 
         // this.highlightColour = this.navyBlue;
 
@@ -64,11 +65,15 @@ app.playState = {
 
         // this.revealed = [];
 
-        console.log(this.darkGrey);
         this.drawBoard(this.board, this.revealed);
-
+        game.time.events.add(1000, function() {
+            this.coverBoxesAnimation(_.flatten(this.board));
+        }, this);
     },
 
+    update: function() {
+
+    },
 
     getRandomisedBoard: function() {
         var icons = [];
@@ -102,26 +107,18 @@ app.playState = {
         return board;
     },
 
-    drawBoard: function(board, revealed) {
+    drawBoard: function(board) {
         var self = app.playState;
-
-        // var g = game.add.graphics(0, 0);
-        // // width, colour, alpha
 
         _.each(_.flatten(board), function(tile) {
             var coords = self.boxCoordsInPixels(tile.x, tile.y);
-            console.log(coords);
 
-        //     if(tile.revealed) {
-        //         self.drawIcon(tile);
-        //     } else {
-        //         g.beginFill(self.boxColour);
-        //         g.drawRect(coords.left, coords.top, self.boxSize, self.boxSize);
-        //         g.endFill();
-        //     }
-            tile.sprite = game.add.sprite(coords.x, coords.y, 'box');
-            tile.sprite.tint = Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b);
-            console.log(tile.sprite);
+            tile.sprite = game.add.sprite(coords.x, coords.y, tile.shape);
+            tile.sprite.tint = Phaser.Color.getColor(tile.colour.r, tile.colour.g, tile.colour.b);
+
+            tile.box = game.add.sprite(coords.x, coords.y, 'box');
+            tile.box.tint = Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b);
+            tile.box.width = 0;
         });
 
       
@@ -284,19 +281,20 @@ app.playState = {
 
     // },
 
-    // matchTile: function(tile, tileToMatch) {
-    //     return tile.id === tileToMatch.id;
-    // },
 
-    // // boxes = boxes to cover over
-    // coverBoxesAnimation: function(boxes) {
-    //     // i = pixels of cover to draw per frame
-    //     var timeCheck = game.time.now;
+    // // boxes = array of boxes to cover over
+    coverBoxesAnimation: function(tiles) {
+        var self = app.playState;
 
-    //     // for(var i = 0; i < this.boxSize; i++) {
-    //     //     this.drawBoxCovers(boxes, i);
-    //     // }
-    // },
+        // tile.box.bringToTop();
+        _.each(tiles, function(tile) {
+            var delay = (100 * tile.x) + (50 * tile.y);
+            console.log(console.log(delay));
+
+            // to({properties}, duration, easing, autostart, delay)
+            this.game.add.tween(tile.box).to({width: self.boxSize}, self.revealSpeed, Phaser.Easing.Default, true, delay);
+        });
+    },
 
     // drawBoxCovers: function(boxes, coverage) {
     //     var self = app.playState;

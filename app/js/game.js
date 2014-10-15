@@ -2,7 +2,7 @@
 
 var app = app || {};
 
-var game = new Phaser.Game(800, 640, Phaser.AUTO, 'game');
+var game = new Phaser.Game(320, 480, Phaser.AUTO, 'game');
 
 // add all the states here
 // all states should be in the app namespace

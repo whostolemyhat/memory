@@ -37,6 +37,9 @@ app.menuState = {
         var upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
         upKey.onDown.addOnce(this.start, this);
 
+        // Debug - just start
+        game.state.start('play');
+
         this.muteButton = game.add.button(20, 20, 'mute', this.toggleSound, this);
         this.muteButton.input.useHandCursor = true;
         if(game.sound.mute) {
