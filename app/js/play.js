@@ -51,7 +51,15 @@ app.playState = {
 
         this.board = this.getRandomisedBoard();
 
+        // used to find box positions
+        this.tiles = _.flatten(this.board);
+
+        this.firstSelected = '';
+        this.secondSelected = '';
+
         // this.revealed = [];
+
+        game.input.onDown.add(this.boxClick);
 
         this.drawBoard(this.board, this.revealed);
         game.time.events.add(1000, function() {
@@ -64,14 +72,25 @@ app.playState = {
     },
 
     getRandomisedBoard: function() {
+        // create coloured icons for half the tiles
+        var maxIcons = (this.boardWidth * this.boardHeight) / 2;
         var icons = [];
-        for(var i = 0; i < this.allColours.length; i++) {
-            for(var j = 0; j < this.allShapes.length; j++) {
-                icons.push([this.allShapes[j], this.allColours[i]]);
-            }
+
+        for(var i = 0; i < maxIcons; i++) {
+            // pick random colour
+            var colour = this.allColours[Math.floor(Math.random() * this.allColours.length)];
+            var shape = this.allShapes[Math.floor(Math.random() * this.allShapes.length)];
+            icons.push([shape, colour]);
         }
 
-        // double the icon array so there's enough!
+        // var icons = [];
+        // for(var i = 0; i < this.allColours.length; i++) {
+        //     for(var j = 0; j < this.allShapes.length; j++) {
+        //         icons.push([this.allShapes[j], this.allColours[i]]);
+        //     }
+        // }
+
+        // double the icon array so there's two of each
         icons = icons.concat(icons);
         icons = _.shuffle(icons);
 
@@ -108,7 +127,7 @@ app.playState = {
             tile.box.tint = Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b);
             tile.box.width = 0;
             tile.box.inputEnabled = true;
-            tile.box.events.onInputOver.add(self.boxClick, this);
+            // tile.box.events.onInputOver.add(self.boxHover, this);
         });
 
       
@@ -139,8 +158,8 @@ app.playState = {
 
         return _.find(self.tiles, function(tile) {
 
-            var pos = self.boxCoords(tile.x, tile.y);
-            var collisionRect = new Phaser.Rectangle(pos.left, pos.top, self.boxSize, self.boxSize);
+            var pos = self.boxCoordsInPixels(tile.x, tile.y);
+            var collisionRect = new Phaser.Rectangle(pos.x, pos.y, self.boxSize, self.boxSize);
 
             if(collisionRect.contains(x, y)) {
                 return tile;
@@ -192,16 +211,37 @@ app.playState = {
 
     // },
 
-    boxClick: function(sprite, pointer) {
+    boxHover: function(sprite, pointer) {
         var self = app.playState;
 
-        if(pointer.isDown) {
-            this.game.add.tween(sprite).to({width: 0}, self.revealSpeed).start();
+        // if(pointer.isDown) {
+        // self.game.add.tween(sprite).to({width: 0}, self.revealSpeed).start();
 
             // are there two in revealed?
             // check match
-        } else {
+        // } else {
             // highlight
+            // var highlight = this.game.add.sprite(sprite.x - 5, sprite.y - 5, 'box');
+            // highlight.tint = 0xffffff;
+            // highlight.scale(1.1, 1);
+        // }
+    },
+
+
+    boxClick: function(pointer, event) {
+        var self = app.playState;
+
+        var tile = self.getBoxAtPos(game.input.x, game.input.y);
+
+        if(tile) {
+            self.game.add.tween(tile.box).to({width: 0}, self.revealSpeed).start();
+            if(this.firstSelected === '') {
+                this.firstSelected = tile;
+            } else if(this.secondSelected === '') {
+                this.secondSelected = tile;
+
+                // compare two icons
+            }
         }
     },
 
@@ -212,7 +252,6 @@ app.playState = {
 
         _.each(tiles, function(tile) {
             var delay = (100 * tile.x) + (50 * tile.y);
-            console.log(console.log(delay));
 
             // to({properties}, duration, easing, autostart, delay)
             this.game.add.tween(tile.box).to({width: self.boxSize}, self.revealSpeed, Phaser.Easing.Default, true, delay);
