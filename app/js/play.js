@@ -71,24 +71,33 @@ app.playState = {
 
     },
 
+    pickColour: function() {
+        return this.allColours[Math.floor(Math.random() * this.allColours.length)];
+    },
+
     getRandomisedBoard: function() {
         // create coloured icons for half the tiles
         var maxIcons = (this.boardWidth * this.boardHeight) / 2;
         var icons = [];
 
+        var usedColours = [];
+
         for(var i = 0; i < maxIcons; i++) {
             // pick random colour
-            var colour = this.allColours[Math.floor(Math.random() * this.allColours.length)];
+            var colour = this.pickColour();
+
+            while(_.indexOf(usedColours, colour) > -1) {
+                colour = this.pickColour();
+            }
             var shape = this.allShapes[Math.floor(Math.random() * this.allShapes.length)];
+
+            usedColours.push(colour);
+            if(usedColours.length === this.allColours.length) {
+                usedColours = [];
+            }
+
             icons.push([shape, colour]);
         }
-
-        // var icons = [];
-        // for(var i = 0; i < this.allColours.length; i++) {
-        //     for(var j = 0; j < this.allShapes.length; j++) {
-        //         icons.push([this.allShapes[j], this.allColours[i]]);
-        //     }
-        // }
 
         // double the icon array so there's two of each
         icons = icons.concat(icons);
@@ -234,14 +243,42 @@ app.playState = {
         var tile = self.getBoxAtPos(game.input.x, game.input.y);
 
         if(tile) {
-            self.game.add.tween(tile.box).to({width: 0}, self.revealSpeed).start();
-            if(this.firstSelected === '') {
-                this.firstSelected = tile;
-            } else if(this.secondSelected === '') {
-                this.secondSelected = tile;
+            console.log(tile);
+            if(!tile.revealed) {
+                self.game.add.tween(tile.box).to({width: 0}, self.revealSpeed).start();
 
-                // compare two icons
-            }
+                if(self.firstSelected === '') {
+                    self.firstSelected = tile;
+                    console.log('first tile');
+                } else if(self.secondSelected === '') {
+                    self.secondSelected = tile;
+                    console.log('second tile');
+
+                    // compare two icons
+                    console.log(self.firstSelected, self.secondSelected);
+                    console.log('shape', self.firstSelected.shape === self.secondSelected.shape);
+
+                    if((self.firstSelected.shape === self.secondSelected.shape) && (self.firstSelected.colour === self.secondSelected.colour)) {
+                        console.log('match!');
+                    } else {
+                        console.log('nope');
+                        // cover boxes
+
+                        game.time.events.add(1000, function() {
+                            console.log('delayed event');
+
+                            self.coverBoxesAnimation([self.firstSelected, self.secondSelected]);
+                            self.firstSelected = '';
+                            self.secondSelected = '';
+
+                        });
+                    } // end selectedTile check
+                    
+                }
+                tile.revealed = true;
+                
+            } // end !tile.revealed
+
         }
     },
 
@@ -255,6 +292,7 @@ app.playState = {
 
             // to({properties}, duration, easing, autostart, delay)
             this.game.add.tween(tile.box).to({width: self.boxSize}, self.revealSpeed, Phaser.Easing.Default, true, delay);
+            tile.revealed = false;
         });
     },
 
