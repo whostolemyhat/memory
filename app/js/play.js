@@ -260,10 +260,14 @@ app.playState = {
 
                     if((self.firstSelected.shape === self.secondSelected.shape) && (self.firstSelected.colour === self.secondSelected.colour)) {
                         console.log('match!');
+
+                        // reset
+                        self.firstSelected = '';
+                        self.secondSelected = '';
                     } else {
                         console.log('nope');
+                        
                         // cover boxes
-
                         game.time.events.add(1000, function() {
                             console.log('delayed event');
 
