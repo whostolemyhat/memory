@@ -56,8 +56,9 @@ app.playState = {
 
         this.firstSelected = '';
         this.secondSelected = '';
+        this.totalRevealed = 0;
 
-        // this.revealed = [];
+        this.animating = false;
 
         game.input.onDown.add(this.boxClick);
 
@@ -65,10 +66,6 @@ app.playState = {
         game.time.events.add(1000, function() {
             this.coverBoxesAnimation(_.flatten(this.board));
         }, this);
-    },
-
-    update: function() {
-
     },
 
     pickColour: function() {
@@ -239,51 +236,65 @@ app.playState = {
 
     boxClick: function(pointer, event) {
         var self = app.playState;
+        if(!self.animating) {
+            
 
-        var tile = self.getBoxAtPos(game.input.x, game.input.y);
+            var tile = self.getBoxAtPos(game.input.x, game.input.y);
 
-        if(tile) {
-            console.log(tile);
-            if(!tile.revealed) {
-                self.game.add.tween(tile.box).to({width: 0}, self.revealSpeed).start();
+            if(tile) {
+                console.log(tile);
+                if(!tile.revealed) {
+                    self.game.add.tween(tile.box).to({width: 0}, self.revealSpeed).start();
 
-                if(self.firstSelected === '') {
-                    self.firstSelected = tile;
-                    console.log('first tile');
-                } else if(self.secondSelected === '') {
-                    self.secondSelected = tile;
-                    console.log('second tile');
+                    if(self.firstSelected === '') {
+                        self.firstSelected = tile;
+                        console.log('first tile');
+                    } else if(self.secondSelected === '') {
+                        self.secondSelected = tile;
+                        console.log('second tile');
+                        self.animating = true;
 
-                    // compare two icons
-                    console.log(self.firstSelected, self.secondSelected);
-                    console.log('shape', self.firstSelected.shape === self.secondSelected.shape);
+                        // compare two icons
+                        console.log(self.firstSelected, self.secondSelected);
+                        console.log('shape', self.firstSelected.shape === self.secondSelected.shape);
 
-                    if((self.firstSelected.shape === self.secondSelected.shape) && (self.firstSelected.colour === self.secondSelected.colour)) {
-                        console.log('match!');
+                        if((self.firstSelected.shape === self.secondSelected.shape) && (self.firstSelected.colour === self.secondSelected.colour)) {
+                            console.log('match!');
 
-                        // reset
-                        self.firstSelected = '';
-                        self.secondSelected = '';
-                    } else {
-                        console.log('nope');
-                        
-                        // cover boxes
-                        game.time.events.add(1000, function() {
-                            console.log('delayed event');
+                            self.totalRevealed += 2;
+                            if(self.totalRevealed === self.tiles.length) {
+                                // game over!
+                                console.log('You win!');
+                            }
 
-                            self.coverBoxesAnimation([self.firstSelected, self.secondSelected]);
+                            // reset
                             self.firstSelected = '';
                             self.secondSelected = '';
+                            self.animating = false;
+                            
+                        } else {
+                            console.log('nope');
+                            
+                            // cover boxes
+                            game.time.events.add(800, function() {
+                                console.log('delayed event');
 
-                        });
-                    } // end selectedTile check
+                                self.coverBoxesAnimation([self.firstSelected, self.secondSelected]);
+                                self.firstSelected = '';
+                                self.secondSelected = '';
+                                self.animating = false;
+
+                            });
+                        } // end selectedTile check
+                        
+                    }
+                    tile.revealed = true;
                     
-                }
-                tile.revealed = true;
-                
-            } // end !tile.revealed
+                } // end !tile.revealed
 
+            }
         }
+        
     },
 
 
