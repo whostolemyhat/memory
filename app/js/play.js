@@ -4,8 +4,6 @@ var app = app || {};
 
 app.playState = {
     create: function() {
-        console.log('game running');
-
         this.windowWidth = 320;
         this.windowHeight = 480;
         this.revealSpeed = 250; // speed to show/hide in ms
@@ -15,6 +13,9 @@ app.playState = {
 
         this.boardWidth = 4;
         this.boardHeight = 6;
+
+        this.totalMoves = 0;
+        this.deadAlpha = 0.4;
 
         this.xMargin = (this.windowWidth - (this.boardWidth * (this.boxSize + this.gapSize))) / 2;
         this.yMargin = (this.windowHeight - (this.boardHeight * (this.boxSize + this.gapSize))) / 2;
@@ -242,13 +243,17 @@ app.playState = {
             var tile = self.getBoxAtPos(game.input.x, game.input.y);
 
             if(tile) {
-                console.log(tile);
                 if(!tile.revealed) {
                     self.game.add.tween(tile.box).to({width: 0}, self.revealSpeed).start();
+
+                    // update total moves
+                    self.totalMoves += 1;
+                    console.log(self.totalMoves);
 
                     if(self.firstSelected === '') {
                         self.firstSelected = tile;
                         console.log('first tile');
+
                     } else if(self.secondSelected === '') {
                         self.secondSelected = tile;
                         console.log('second tile');
@@ -261,10 +266,15 @@ app.playState = {
                         if((self.firstSelected.shape === self.secondSelected.shape) && (self.firstSelected.colour === self.secondSelected.colour)) {
                             console.log('match!');
 
+                            game.add.tween(self.firstSelected.sprite).to({ alpha: self.deadAlpha }, 300).start();
+                            game.add.tween(self.secondSelected.sprite).to({ alpha: self.deadAlpha }, 300).start();
+
+
                             self.totalRevealed += 2;
                             if(self.totalRevealed === self.tiles.length) {
                                 // game over!
                                 console.log('You win!');
+                                self.win();
                             }
 
                             // reset
@@ -310,5 +320,33 @@ app.playState = {
             tile.revealed = false;
         });
     },
+
+    win: function() {
+        var self = this;
+
+        var winLabel = game.add.text(
+            game.world.centerX,
+            game.world.centerY,
+            'You win!',
+            {
+                font: '40px Arial',
+                fill: '#fff',
+                align: 'center'
+            }
+        );
+        winLabel.anchor.setTo(0.5, 0.5);
+
+        var moveLabel = game.add.text(
+            game.world.centerX,
+            game.world.centerY + 20,
+            'Moves: ' + self.totalMoves,
+            {
+                font: '20px Arial',
+                fill: '#eff',
+                align: 'center'
+            }
+        );
+        moveLabel.anchor.setTo(0.5, 0.5);
+    }
 
 };
