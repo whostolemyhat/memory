@@ -20,6 +20,21 @@ app.playState = {
         this.xMargin = (this.windowWidth - (this.boardWidth * (this.boxSize + this.gapSize))) / 2;
         this.yMargin = (this.windowHeight - (this.boardHeight * (this.boxSize + this.gapSize))) / 2;
 
+        // 15 particles
+        this.emitter = game.add.emitter(0, 0, 15);
+        // set particle image
+        this.emitter.makeParticles('pixel');
+        // speed in range -150 and 150
+        this.emitter.setYSpeed(-150, 150);
+        this.emitter.setXSpeed(-150, 150);
+        this.emitter.gravity = 0;
+
+        this.secondEmitter = game.add.emitter(0, 0, 15);
+        this.secondEmitter.makeParticles('pixel');
+        this.secondEmitter.setYSpeed(-150, 150);
+        this.secondEmitter.setXSpeed(-170, 170);
+        this.secondEmitter.gravity = 0;
+
         this.star = 'star';
         this.rings = 'rings';
         this.hex = 'hex';
@@ -269,6 +284,23 @@ app.playState = {
                             game.add.tween(self.firstSelected.sprite).to({ alpha: self.deadAlpha }, 300).start();
                             game.add.tween(self.secondSelected.sprite).to({ alpha: self.deadAlpha }, 300).start();
 
+                            self.emitter.x = self.firstSelected.sprite.x + (self.firstSelected.sprite.width / 2);
+                            self.emitter.y = self.firstSelected.sprite.y + (self.firstSelected.sprite.height / 2);
+                            self.emitter.forEach(function(particle) {
+                                particle.tint = Phaser.Color.getColor(self.firstSelected.colour.r, self.firstSelected.colour.g, self.firstSelected.colour.b);
+                            });
+
+                            // 15 particles which live for 350ms
+                            self.emitter.start(true, 350, null, 15);
+
+                            self.secondEmitter.x = self.secondSelected.sprite.x + (self.secondSelected.sprite.width / 2);
+                            self.secondEmitter.y = self.secondSelected.sprite.y + (self.secondSelected.sprite.height / 2);
+                            
+                            self.secondEmitter.forEach(function(particle) {
+                                particle.tint = Phaser.Color.getColor(self.secondSelected.colour.r, self.secondSelected.colour.g, self.secondSelected.colour.b);
+                            });
+                            // explode, lifespan, frequency, quantity
+                            self.secondEmitter.start(true, 450, null, 15);
 
                             self.totalRevealed += 2;
                             if(self.totalRevealed === self.tiles.length) {

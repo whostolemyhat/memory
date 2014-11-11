@@ -27,6 +27,7 @@ app.loadState = {
         game.load.spritesheet('mute', 'img/menu/muteButton.png', 28, 22);
 
         game.load.image('box', 'img/box.png');
+        game.load.image('pixel', 'img/pixel.png');
         game.load.image('circle', 'img/icons/circle.png');
         game.load.image('diamond', 'img/icons/diamond.png');
         game.load.image('hex', 'img/icons/hex.png');
