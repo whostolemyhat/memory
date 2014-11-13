@@ -358,7 +358,7 @@ app.playState = {
 
         var winLabel = game.add.text(
             game.world.centerX,
-            game.world.centerY,
+            game.world.centerY - 40,
             'You win!',
             {
                 font: '40px Arial',
@@ -370,7 +370,7 @@ app.playState = {
 
         var moveLabel = game.add.text(
             game.world.centerX,
-            game.world.centerY + 20,
+            game.world.centerY,
             'Moves: ' + self.totalMoves,
             {
                 font: '20px Arial',
@@ -379,6 +379,18 @@ app.playState = {
             }
         );
         moveLabel.anchor.setTo(0.5, 0.5);
-    }
 
+        var playLink = game.add.button(
+            game.world.centerX,
+            game.world.centerY + 40,
+            'box',
+            this.replay,
+            this
+        );
+        playLink.anchor.setTo(0.5, 0.5);
+    },
+
+    replay: function() {
+        game.state.start('play');
+    }
 };
