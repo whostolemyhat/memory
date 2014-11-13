@@ -149,7 +149,6 @@ app.playState = {
             tile.box.tint = Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b);
             tile.box.width = 0;
             tile.box.inputEnabled = true;
-            // tile.box.events.onInputOver.add(self.boxHover, this);
         });
 
       
@@ -191,66 +190,7 @@ app.playState = {
         });
     },
 
-    // mouseClick: function(pointer, event) {
-    //     var self = app.playState;
-    //     // self.drawBoard(self.board, self.revealed);
-
-    //     var tile = self.getBoxAtPos(game.input.x, game.input.y);
-
-    //     if(tile) {
-    //         tile.revealed = true;
-    //         // self.drawIcon(tile);
-    //         self.revealed.push(tile);
-
-    //         self.coverBoxesAnimation([tile]);
-
-    //         if(self.revealed.length === 2) {
-    //             console.log(self.revealed);
-
-    //             if((self.revealed[0].shape === self.revealed[1].shape) && (self.revealed[0].colour === self.revealed[1].colour)) {
-    //                 // match!
-    //                 console.log('match');
-    //             } else {
-    //                 console.log('wrong!');
-
-    //                 for(var i = 0; i < self.revealed.length; i++) {
-    //                     console.log('resetting');
-
-    //                     var selectedTile = _.find(_.flatten(self.board), function(tile) {
-    //                         return tile.id === self.revealed[i].id; //self.matchTile(tile, self.revealed[i]));
-    //                     });
-
-    //                     selectedTile.revealed = false;
-    //                 }
-
-    //                 self.coverBoxesAnimation(self.revealed);
-    //                 self.revealed = [];
-    //             }
-    //         }
-
-    //         // self.drawBoard(self.board, self.revealed);
-    //     }
-
-    // },
-
-    boxHover: function(sprite, pointer) {
-        var self = app.playState;
-
-        // if(pointer.isDown) {
-        // self.game.add.tween(sprite).to({width: 0}, self.revealSpeed).start();
-
-            // are there two in revealed?
-            // check match
-        // } else {
-            // highlight
-            // var highlight = this.game.add.sprite(sprite.x - 5, sprite.y - 5, 'box');
-            // highlight.tint = 0xffffff;
-            // highlight.scale(1.1, 1);
-        // }
-    },
-
-
-    boxClick: function(pointer, event) {
+    boxClick: function() {
         var self = app.playState;
         if(!self.animating) {
             
@@ -355,6 +295,18 @@ app.playState = {
 
     win: function() {
         var self = this;
+
+        // centre, width, height
+        this.finalEmitter = game.add.emitter(0, 0, 0);
+        this.finalEmitter.width = game.world.width / 2;
+        this.finalEmitter.makeParticles('pixel');
+        this.secondEmitter.setYSpeed(-80, 80);
+        this.secondEmitter.setXSpeed(-80, 80);
+        this.secondEmitter.gravity = 10;
+        this.finalEmitter.x = game.world.centerX;
+        this.finalEmitter.y = 0;
+        // explode, lifespan, frequency, quantity
+        this.finalEmitter.start(false, 5000, 20);
 
         var winLabel = game.add.text(
             game.world.centerX,
