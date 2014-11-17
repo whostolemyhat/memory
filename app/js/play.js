@@ -193,7 +193,6 @@ app.playState = {
     boxClick: function() {
         var self = app.playState;
         if(!self.animating) {
-            
 
             var tile = self.getBoxAtPos(game.input.x, game.input.y);
 
@@ -220,27 +219,8 @@ app.playState = {
 
                         if((self.firstSelected.shape === self.secondSelected.shape) && (self.firstSelected.colour === self.secondSelected.colour)) {
                             console.log('match!');
-
-                            game.add.tween(self.firstSelected.sprite).to({ alpha: self.deadAlpha }, 300).start();
-                            game.add.tween(self.secondSelected.sprite).to({ alpha: self.deadAlpha }, 300).start();
-
-                            self.emitter.x = self.firstSelected.sprite.x + (self.firstSelected.sprite.width / 2);
-                            self.emitter.y = self.firstSelected.sprite.y + (self.firstSelected.sprite.height / 2);
-                            self.emitter.forEach(function(particle) {
-                                particle.tint = Phaser.Color.getColor(self.firstSelected.colour.r, self.firstSelected.colour.g, self.firstSelected.colour.b);
-                            });
-
-                            // 15 particles which live for 350ms
-                            self.emitter.start(true, 350, null, 15);
-
-                            self.secondEmitter.x = self.secondSelected.sprite.x + (self.secondSelected.sprite.width / 2);
-                            self.secondEmitter.y = self.secondSelected.sprite.y + (self.secondSelected.sprite.height / 2);
                             
-                            self.secondEmitter.forEach(function(particle) {
-                                particle.tint = Phaser.Color.getColor(self.secondSelected.colour.r, self.secondSelected.colour.g, self.secondSelected.colour.b);
-                            });
-                            // explode, lifespan, frequency, quantity
-                            self.secondEmitter.start(true, 450, null, 15);
+                            self.tileMatched();
 
                             self.totalRevealed += 2;
                             if(self.totalRevealed === self.tiles.length) {
@@ -248,11 +228,6 @@ app.playState = {
                                 console.log('You win!');
                                 self.win();
                             }
-
-                            // reset
-                            self.firstSelected = '';
-                            self.secondSelected = '';
-                            self.animating = false;
                             
                         } else {
                             console.log('nope');
@@ -344,5 +319,48 @@ app.playState = {
 
     replay: function() {
         game.state.start('play');
+    },
+
+    tileMatched: function() {
+        var self = this;
+
+        self.firstSelected.sprite.anchor.setTo(0.4, 0.5);
+        self.firstSelected.sprite.x = self.firstSelected.sprite.x + (self.boxSize * 0.4);
+        self.firstSelected.sprite.y = self.firstSelected.sprite.y + (self.boxSize / 2);
+
+        self.secondSelected.sprite.anchor.setTo(0.6, 0.5);
+        self.secondSelected.sprite.x = self.secondSelected.sprite.x + (self.boxSize * 0.6);
+        self.secondSelected.sprite.y = self.secondSelected.sprite.y + (self.boxSize / 2);
+
+        // animate first sprite
+        game.add.tween(self.firstSelected.sprite).to({ alpha: self.deadAlpha, angle: 360 }, 300).start();
+        game.add.tween(self.firstSelected.sprite.scale).to({ x: 0.8, y: 0.8 }, 300).start();
+
+        game.add.tween(self.secondSelected.sprite).to({ alpha: self.deadAlpha, angle: -360 }, 300).start();
+        game.add.tween(self.secondSelected.sprite.scale).to({ x: 0.8, y: 0.8 }, 300).start();
+
+        self.emitter.x = self.firstSelected.sprite.x;
+        self.emitter.y = self.firstSelected.sprite.y;
+        self.emitter.forEach(function(particle) {
+            particle.tint = Phaser.Color.getColor(self.firstSelected.colour.r, self.firstSelected.colour.g, self.firstSelected.colour.b);
+        });
+
+        // 15 particles which live for 350ms
+        self.emitter.start(true, 350, null, 15);
+
+        self.secondEmitter.x = self.secondSelected.sprite.x;
+        self.secondEmitter.y = self.secondSelected.sprite.y;
+        
+        self.secondEmitter.forEach(function(particle) {
+            particle.tint = Phaser.Color.getColor(self.secondSelected.colour.r, self.secondSelected.colour.g, self.secondSelected.colour.b);
+        });
+        // explode, lifespan, frequency, quantity
+        self.secondEmitter.start(true, 450, null, 15);
+
+
+        // reset
+        self.firstSelected = '';
+        self.secondSelected = '';
+        self.animating = false;
     }
 };
