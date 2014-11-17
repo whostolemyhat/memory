@@ -42,22 +42,25 @@ app.playState = {
         this.diamond = 'diamond';
         this.circle = 'circle';
 
+        // shape colours
         this.fire = Phaser.Color.createColor(214,147,92); // then call Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b)
         this.navyBlue = Phaser.Color.createColor(60, 60, 100);
-        this.white = Phaser.Color.createColor(255, 255, 255);
         this.brown = Phaser.Color.createColor(185,138,122);
-        this.lilac = Phaser.Color.createColor(170,173,204);
-        this.life = Phaser.Color.createColor(217,200,182);
-        this.peach = Phaser.Color.createColor(242,216,179);
+        // this.lilac = Phaser.Color.createColor(170,173,204);
+        // this.life = Phaser.Color.createColor(217,200,182);
         this.purple = Phaser.Color.createColor(138,76,124);
-        this.grey = Phaser.Color.createColor(109,127,142);
+        // this.grey = Phaser.Color.createColor(109,127,142);
         this.russet = Phaser.Color.createColor(174,70,0);
-        this.orange = Phaser.Color.createColor(222,73,30);
+        // this.orange = Phaser.Color.createColor(222,73,30);
         this.amber = Phaser.Color.createColor(255,149,22);
-        this.darkGrey = Phaser.Color.createColor(74,72,73);
         this.pink = Phaser.Color.createColor(244,160,170);
+        
+        // ui colours
+        this.white = Phaser.Color.createColor(255, 255, 255);
+        this.darkGrey = Phaser.Color.createColor(74,72,73);
+        this.peach = Phaser.Color.createColor(242,216,179);
 
-        this.allColours = [this.fire, this.brown, this.lilac, this.life, this.purple, this.russet, this.amber, this.pink];
+        this.allColours = [this.fire, this.brown, this.purple, this.russet, this.amber, this.pink, this.navyBlue];
         this.allShapes = [this.star, this.rings, this.hex, this.square, this.diamond, this.circle];
 
         this.boxColour = this.darkGrey;
@@ -206,16 +209,13 @@ app.playState = {
 
                     if(self.firstSelected === '') {
                         self.firstSelected = tile;
-                        console.log('first tile');
 
                     } else if(self.secondSelected === '') {
                         self.secondSelected = tile;
-                        console.log('second tile');
                         self.animating = true;
 
                         // compare two icons
                         console.log(self.firstSelected, self.secondSelected);
-                        console.log('shape', self.firstSelected.shape === self.secondSelected.shape);
 
                         if((self.firstSelected.shape === self.secondSelected.shape) && (self.firstSelected.colour === self.secondSelected.colour)) {
                             console.log('match!');
@@ -234,13 +234,10 @@ app.playState = {
                             
                             // cover boxes
                             game.time.events.add(800, function() {
-                                console.log('delayed event');
-
                                 self.coverBoxesAnimation([self.firstSelected, self.secondSelected]);
                                 self.firstSelected = '';
                                 self.secondSelected = '';
                                 self.animating = false;
-
                             });
                         } // end selectedTile check
                         
