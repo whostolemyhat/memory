@@ -25,6 +25,7 @@ app.loadState = {
 
         // load all assets
         game.load.spritesheet('mute', 'img/menu/muteButton.png', 28, 22);
+        game.load.spritesheet('play', 'img/menu/play.png', 300, 50);
 
         game.load.image('box', 'img/box.png');
         game.load.image('pixel', 'img/pixel.png');
@@ -34,6 +35,7 @@ app.loadState = {
         game.load.image('rings', 'img/icons/rings.png');
         game.load.image('square', 'img/icons/square.png');
         game.load.image('star', 'img/icons/star.png');
+        game.load.image('lines', 'img/icons/lines.png');
     },
 
     create: function() {

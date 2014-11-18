@@ -41,6 +41,7 @@ app.playState = {
         this.square = 'square';
         this.diamond = 'diamond';
         this.circle = 'circle';
+        this.lines = 'lines';
 
         // shape colours
         this.fire = Phaser.Color.createColor(214,147,92); // then call Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b)
@@ -307,9 +308,11 @@ app.playState = {
         var playLink = game.add.button(
             game.world.centerX,
             game.world.centerY + 40,
-            'box',
+            'play',
             this.replay,
-            this
+            this,
+            1,
+            0
         );
         playLink.anchor.setTo(0.5, 0.5);
     },
