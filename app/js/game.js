@@ -10,7 +10,7 @@ game.state.add('boot', app.bootState);
 game.state.add('load', app.loadState);
 game.state.add('menu', app.menuState);
 game.state.add('play', app.playState);
-
+// game.state.add('pause', app.pauseState);
 
 // start everything!
 game.state.start('boot');

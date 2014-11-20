@@ -1,9 +1,14 @@
 /* global game, _, Phaser, Tile */
 var app = app || {};
 
-
 app.playState = {
     create: function() {
+        this.paused = true;
+        this.pauseKey = game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+        this.pauseKey.onUp.add(this.pauseGame, this);
+        this.pausePanel = new PausePanel(game);
+        this.pausePanel.hide();
+
         this.windowWidth = 320;
         this.windowHeight = 480;
         this.revealSpeed = 250; // speed to show/hide in ms
@@ -41,7 +46,8 @@ app.playState = {
         this.square = 'square';
         this.diamond = 'diamond';
         this.circle = 'circle';
-        this.lines = 'lines';
+        // this.lines = 'lines';
+        this.triangle = 'triangle';
 
         // shape colours
         this.fire = Phaser.Color.createColor(214,147,92); // then call Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b)
@@ -62,7 +68,7 @@ app.playState = {
         this.peach = Phaser.Color.createColor(242,216,179);
 
         this.allColours = [this.fire, this.brown, this.purple, this.russet, this.amber, this.pink, this.navyBlue];
-        this.allShapes = [this.star, this.rings, this.hex, this.square, this.diamond, this.circle];
+        this.allShapes = [this.star, this.rings, this.hex, this.square, this.diamond, this.circle, this.triangle];
 
         this.boxColour = this.darkGrey;
         this.backgroundColour = this.peach;
@@ -81,6 +87,15 @@ app.playState = {
         this.animating = false;
 
         game.input.onDown.add(this.boxClick);
+
+        this.playGame();
+    },
+
+    playGame: function() {
+        if(this.paused) {
+            this.paused = false;
+            this.pausePanel.hide();
+        }
 
         this.drawBoard(this.board, this.revealed);
         game.time.events.add(1000, function() {
@@ -362,5 +377,47 @@ app.playState = {
         self.firstSelected = '';
         self.secondSelected = '';
         self.animating = false;
+    },
+
+    pauseGame: function() {
+        console.log('pause pressed', this.paused);
+        // prevent multiple clicks
+        if(!app.paused) {
+            app.paused = true;
+            this.pausePanel.show();
+        }
     }
+};
+
+var PausePanel = function(game, parent) {
+    Phaser.Group.call(this, game, parent);
+
+    this.panel = this.create(game.width / 2, 10, 'box');
+    this.panel.anchor.setTo(0.5, 0);
+    this.pauseText = game.add.text(
+        30,
+        50,
+        'paused',
+        {
+            font: '20px Arial',
+            fill: '#eff',
+            align: 'center'
+        }
+    );
+    this.add(this.pauseText);
+
+    this.x = 0;
+    this.y = -100;
+
+};
+
+PausePanel.prototype = Object.create(Phaser.Group.prototype);
+PausePanel.constructor = PausePanel;
+PausePanel.prototype.show = function() {
+    console.log('show');
+    this.game.add.tween(this).to({ y: 0 }, 500, Phaser.Easing.Bounce.Out, true);
+};
+PausePanel.prototype.hide = function() {
+    console.log('hide');
+    this.game.add.tween(this).to({ y: -100 }, 200, Phaser.Easing.Linear.NONE, true);
 };
