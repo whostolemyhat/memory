@@ -3,10 +3,11 @@ var app = app || {};
 
 app.playState = {
     create: function() {
-        this.paused = true;
+        // this.paused = true;
         this.pauseKey = game.input.keyboard.addKey(Phaser.Keyboard.ESC);
         this.pauseKey.onUp.add(this.pauseGame, this);
         this.pausePanel = new PausePanel(game);
+        this.game.add.existing(this.pausePanel);
         this.pausePanel.hide();
 
         this.windowWidth = 320;
@@ -92,10 +93,11 @@ app.playState = {
     },
 
     playGame: function() {
-        if(this.paused) {
-            this.paused = false;
-            this.pausePanel.hide();
-        }
+        // if(this.paused) {
+        //     this.paused = false;
+        //     this.game.paused = false;
+        //     this.pausePanel.hide();
+        // }
 
         this.drawBoard(this.board, this.revealed);
         game.time.events.add(1000, function() {
@@ -302,7 +304,7 @@ app.playState = {
             'You win!',
             {
                 font: '40px Arial',
-                fill: '#fff',
+                fill: '#3c3c64',
                 align: 'center'
             }
         );
@@ -314,7 +316,7 @@ app.playState = {
             'Moves: ' + self.totalMoves,
             {
                 font: '20px Arial',
-                fill: '#eff',
+                fill: '#3c3c64',
                 align: 'center'
             }
         );
@@ -382,29 +384,36 @@ app.playState = {
     pauseGame: function() {
         console.log('pause pressed', this.paused);
         // prevent multiple clicks
-        if(!app.paused) {
-            app.paused = true;
+        // if(!app.paused) {
+            // app.paused = true;
             this.pausePanel.show();
-        }
+        // }
     }
 };
 
 var PausePanel = function(game, parent) {
     Phaser.Group.call(this, game, parent);
 
-    this.panel = this.create(game.width / 2, 10, 'box');
+    this.panel = this.create(game.width, game.height, 'pause');
     this.panel.anchor.setTo(0.5, 0);
-    this.pauseText = game.add.text(
-        30,
-        50,
-        'paused',
-        {
-            font: '20px Arial',
-            fill: '#eff',
-            align: 'center'
-        }
-    );
-    this.add(this.pauseText);
+    // this.pauseText = game.add.text(
+    //     30,
+    //     50,
+    //     'paused',
+    //     {
+    //         font: '20px Arial',
+    //         fill: '#eff',
+    //         align: 'center'
+    //     }
+    // );
+    // this.add(this.pauseText);
+
+    this.pausedText = this.add.text(100, 250, "Game paused.\nTap anywhere to continue.", {
+        font: '20px Arial',
+        fill: '#eff',
+        align: 'center'
+    });
+    this.add(this.pausedText);
 
     this.x = 0;
     this.y = -100;
@@ -415,7 +424,19 @@ PausePanel.prototype = Object.create(Phaser.Group.prototype);
 PausePanel.constructor = PausePanel;
 PausePanel.prototype.show = function() {
     console.log('show');
-    this.game.add.tween(this).to({ y: 0 }, 500, Phaser.Easing.Bounce.Out, true);
+    var show = this.game.add.tween(this).to({ y: 0 }, 500, Phaser.Easing.Bounce.Out, true);
+    show.onComplete.add(function() {
+
+        this.game.paused = true;
+
+        this.input.onDown.add(function() {
+            pausedText.destroy();
+            this.game.paused = false;
+            this.pausePanel.hide();
+        });
+
+    }, this);
+    // this.game.paused = true;
 };
 PausePanel.prototype.hide = function() {
     console.log('hide');

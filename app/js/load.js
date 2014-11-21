@@ -36,6 +36,8 @@ app.loadState = {
         game.load.image('square', 'img/icons/square.png');
         game.load.image('star', 'img/icons/star.png');
         game.load.image('triangle', 'img/icons/triangle.png');
+        
+        game.load.image('pause', 'img/menu/pause.png');
     },
 
     create: function() {
