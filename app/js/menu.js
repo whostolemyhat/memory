@@ -20,6 +20,16 @@ app.menuState = {
         nameLabel.anchor.setTo(0.5, 0.5);
         game.add.tween(nameLabel).to({ y: game.world.centerY - 70 }, 1000).easing(Phaser.Easing.Bounce.Out).start();
 
+        if(!localStorage.getItem('highScore')) {
+            localStorage.setItem('highScore', 0);
+        }
+
+        // if(localStorage.getItem('highScore') !== 0) {
+        //     if(game.global.totalMoves < localStorage.getItem('highScore')) {
+        //         localStorage.setItem('highScore', game.global.totalMoves);
+        //     }
+        // }
+
 
         // start text
         var startLabel = game.add.text(

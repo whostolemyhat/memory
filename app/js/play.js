@@ -3,11 +3,6 @@ var app = app || {};
 
 app.playState = {
     create: function() {
-        // this.paused = true;
-        this.pauseKey = game.input.keyboard.addKey(Phaser.Keyboard.ESC);
-        this.pauseKey.onUp.add(this.pauseGame, this);
-
-
         this.windowWidth = 320;
         this.windowHeight = 480;
         this.revealSpeed = 250; // speed to show/hide in ms
@@ -18,7 +13,18 @@ app.playState = {
         this.boardWidth = 4;
         this.boardHeight = 6;
 
-        this.totalMoves = 0;
+        game.global.totalMoves = 0;
+        // this.scoreText = game.add.text(
+        //     20,
+        //     5,
+        //     'Moves: ' + this.totalMoves,
+        //     {
+        //         font: '20px Arial',
+        //         fill: '#fff',
+        //         align: 'center'
+        //     }
+        // );
+
         this.deadAlpha = 0.4;
 
         this.xMargin = (this.windowWidth - (this.boardWidth * (this.boxSize + this.gapSize))) / 2;
@@ -95,9 +101,6 @@ app.playState = {
         game.time.events.add(1000, function() {
             this.coverBoxesAnimation(_.flatten(this.board));
         }, this);
-        this.pausePanel = new PausePanel(game);
-        this.game.add.existing(this.pausePanel);
-        this.pausePanel.hide();
     },
 
     pickColour: function() {
@@ -217,8 +220,8 @@ app.playState = {
                     self.game.add.tween(tile.box).to({width: 0}, self.revealSpeed).start();
 
                     // update total moves
-                    self.totalMoves += 1;
-                    console.log(self.totalMoves);
+                    game.global.totalMoves += 1;
+                    console.log(game.global.totalMoves);
 
                     if(self.firstSelected === '') {
                         self.firstSelected = tile;
@@ -293,6 +296,20 @@ app.playState = {
         // explode, lifespan, frequency, quantity
         this.finalEmitter.start(false, 5000, 20);
 
+        var highScore = localStorage.getItem('highScore');
+        console.log(game.global.totalMoves, highScore);
+
+        if(highScore === "0") {
+            console.log('here');
+            localStorage.setItem('highScore', game.global.totalMoves);
+        }
+
+        if(game.global.totalMoves < parseInt(highScore, 10)) {
+            console.log('moves < high score');
+            localStorage.setItem('highScore', game.global.totalMoves);
+        }
+
+
         var winLabel = game.add.text(
             game.world.centerX,
             game.world.centerY - 40,
@@ -308,7 +325,7 @@ app.playState = {
         var moveLabel = game.add.text(
             game.world.centerX,
             game.world.centerY,
-            'Moves: ' + self.totalMoves,
+            'Moves: ' + game.global.totalMoves,
             {
                 font: '20px Arial',
                 fill: '#3c3c64',
@@ -317,9 +334,21 @@ app.playState = {
         );
         moveLabel.anchor.setTo(0.5, 0.5);
 
-        var playLink = game.add.button(
+        var highScoreLabel = game.add.text(
             game.world.centerX,
             game.world.centerY + 40,
+            'Best score: ' + localStorage.getItem('highScore'),
+            {
+                font: '20px Arial',
+                fill: '#3c3c64',
+                align: 'center'
+            }
+        );
+        highScoreLabel.anchor.setTo(0.5, 0.5);
+
+        var playLink = game.add.button(
+            game.world.centerX,
+            game.world.centerY + 100,
             'play',
             this.replay,
             this,
@@ -369,59 +398,14 @@ app.playState = {
         // explode, lifespan, frequency, quantity
         self.secondEmitter.start(true, 450, null, 15);
 
-
         // reset
         self.firstSelected = '';
         self.secondSelected = '';
         self.animating = false;
     },
 
-    pauseGame: function() {
-        var self = this;
+    updateScore: function(score) {
 
-        this.pausePanel.show();
-        this.game.input.onDown.add(function() {
-            self.game.paused = false;
-            self.pausePanel.hide();
-        });
     }
 };
 
-var PausePanel = function(game, parent) {
-    Phaser.Group.call(this, game, parent);
-
-    this.panel = this.create(game.width, game.height, 'pause');
-    this.panel.anchor.setTo(1, 1);
-    this.pauseText = game.add.text(
-        game.world.centerX,
-        50,
-        'Game paused;\ntap to continue',
-        {
-            font: '20px Arial',
-            fill: '#eff',
-            align: 'center'
-        }
-    );
-    this.add(this.pauseText);
-
-    this.x = 0;
-    this.y = -480;
-
-};
-
-PausePanel.prototype = Object.create(Phaser.Group.prototype);
-PausePanel.constructor = PausePanel;
-PausePanel.prototype.show = function() {
-
-    var show = this.game.add.tween(this).to({ y: 0 }, 500, Phaser.Easing.Bounce.Out, true);
-    show.onComplete.add(function() {
-
-        this.game.paused = true;
-
-    }, this);
-    // this.game.paused = true;
-};
-PausePanel.prototype.hide = function() {
-    console.log('hide');
-    this.game.add.tween(this).to({ y: -480 }, 200, Phaser.Easing.Linear.NONE, true);
-};
