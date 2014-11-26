@@ -55,7 +55,7 @@ app.playState = {
         this.triangle = 'triangle';
 
         // shape colours
-        this.fire = Phaser.Color.createColor(214,147,92); // then call Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b)
+        // this.fire = Phaser.Color.createColor(214,147,92); // then call Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b)
         this.navyBlue = Phaser.Color.createColor(60, 60, 100);
         this.brown = Phaser.Color.createColor(185,138,122);
         // this.lilac = Phaser.Color.createColor(170,173,204);
@@ -66,13 +66,14 @@ app.playState = {
         // this.orange = Phaser.Color.createColor(222,73,30);
         this.amber = Phaser.Color.createColor(255,149,22);
         this.pink = Phaser.Color.createColor(244,160,170);
+        this.chocolate = Phaser.Color.createColor(89,31,0);
         
         // ui colours
         this.white = Phaser.Color.createColor(255, 255, 255);
         this.darkGrey = Phaser.Color.createColor(74,72,73);
         this.peach = Phaser.Color.createColor(242,216,179);
 
-        this.allColours = [this.fire, this.brown, this.purple, this.russet, this.amber, this.pink, this.navyBlue];
+        this.allColours = [this.chocolate, this.brown, this.purple, this.russet, this.amber, this.pink, this.navyBlue];
         this.allShapes = [this.star, this.rings, this.hex, this.square, this.diamond, this.circle, this.triangle];
 
         this.boxColour = this.darkGrey;
@@ -221,7 +222,6 @@ app.playState = {
 
                     // update total moves
                     game.global.totalMoves += 1;
-                    console.log(game.global.totalMoves);
 
                     if(self.firstSelected === '') {
                         self.firstSelected = tile;
@@ -231,23 +231,16 @@ app.playState = {
                         self.animating = true;
 
                         // compare two icons
-                        console.log(self.firstSelected, self.secondSelected);
-
                         if((self.firstSelected.shape === self.secondSelected.shape) && (self.firstSelected.colour === self.secondSelected.colour)) {
-                            console.log('match!');
-                            
                             self.tileMatched();
 
                             self.totalRevealed += 2;
                             if(self.totalRevealed === self.tiles.length) {
                                 // game over!
-                                console.log('You win!');
                                 self.win();
                             }
                             
                         } else {
-                            console.log('nope');
-                            
                             // cover boxes
                             game.time.events.add(800, function() {
                                 self.coverBoxesAnimation([self.firstSelected, self.secondSelected]);
@@ -293,26 +286,26 @@ app.playState = {
         this.secondEmitter.gravity = 10;
         this.finalEmitter.x = game.world.centerX;
         this.finalEmitter.y = 0;
+        this.finalEmitter.forEach(function(particle) {
+            particle.tint = Phaser.Color.getColor(self.amber.r, self.amber.g, self.amber.b);
+        });
+
         // explode, lifespan, frequency, quantity
         this.finalEmitter.start(false, 5000, 20);
 
-        var highScore = localStorage.getItem('highScore');
-        console.log(game.global.totalMoves, highScore);
-
-        if(highScore === "0") {
-            console.log('here');
+        // if high score not yet set
+        if(parseInt(localStorage.getItem('highScore'), 10) === 0) {
             localStorage.setItem('highScore', game.global.totalMoves);
         }
 
-        if(game.global.totalMoves < parseInt(highScore, 10)) {
-            console.log('moves < high score');
+        if(game.global.totalMoves < parseInt(localStorage.getItem('highScore'), 10)) {
             localStorage.setItem('highScore', game.global.totalMoves);
         }
 
 
         var winLabel = game.add.text(
             game.world.centerX,
-            game.world.centerY - 40,
+            game.world.centerY - 80,
             'You win!',
             {
                 font: '40px Arial',
@@ -324,11 +317,11 @@ app.playState = {
 
         var moveLabel = game.add.text(
             game.world.centerX,
-            game.world.centerY,
-            'Moves: ' + game.global.totalMoves,
+            game.world.centerY - 20,
+            'Total moves: ' + game.global.totalMoves,
             {
                 font: '20px Arial',
-                fill: '#3c3c64',
+                fill: '#591F00', // chocolate
                 align: 'center'
             }
         );
@@ -336,11 +329,11 @@ app.playState = {
 
         var highScoreLabel = game.add.text(
             game.world.centerX,
-            game.world.centerY + 40,
+            game.world.centerY + 20,
             'Best score: ' + localStorage.getItem('highScore'),
             {
                 font: '20px Arial',
-                fill: '#3c3c64',
+                fill: '#591F00',
                 align: 'center'
             }
         );
@@ -402,10 +395,10 @@ app.playState = {
         self.firstSelected = '';
         self.secondSelected = '';
         self.animating = false;
-    },
-
-    updateScore: function(score) {
-
     }
+
+    // updateScore: function(score) {
+
+    // }
 };
 
