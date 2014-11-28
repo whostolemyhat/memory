@@ -32,20 +32,33 @@ app.menuState = {
 
 
         // start text
-        var startLabel = game.add.text(
-            game.world.centerX,
-            game.world.centerY + 60,
-            'press up to start',
-            {
-                font: '20px Arial',
-                fill: '#fff'
-            }
-        );
-        startLabel.anchor.setTo(0.5, 0.5);
-        game.add.tween(startLabel).to({ angle: -2 }, 500).to({ angle: 2 }, 500).loop().start();
+        // var startLabel = game.add.text(
+        //     game.world.centerX,
+        //     game.world.centerY + 60,
+        //     'press up to start',
+        //     {
+        //         font: '20px Arial',
+        //         fill: '#fff'
+        //     }
+        // );
+        // startLabel.anchor.setTo(0.5, 0.5);
 
-        var upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
-        upKey.onDown.addOnce(this.start, this);
+        var playLink = game.add.button(
+            game.world.centerX,
+            game.world.centerY + 100,
+            'play',
+            this.start,
+            this,
+            1,
+            0
+        );
+        playLink.anchor.setTo(0.5, 0.5);
+
+        // game.add.tween(playLink).to({ angle: -2 }, 500).to({ angle: 2 }, 500).loop().start();
+        game.add.tween(playLink.scale).to({ x: 1.2, y: 1.2 }, 300).to({ x: 1, y: 1 }, 300).delay(1500).loop().start();
+
+        // var upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        // upKey.onDown.addOnce(this.start, this);
 
         // Debug - just start
         // game.state.start('play');

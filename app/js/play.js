@@ -349,6 +349,7 @@ app.playState = {
             0
         );
         playLink.anchor.setTo(0.5, 0.5);
+        game.add.tween(playLink.scale).to({ x: 1.2, y: 1.2 }, 300).to({ x: 1, y: 1 }, 300).delay(1500).loop().start();
     },
 
     replay: function() {

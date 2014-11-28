@@ -10,7 +10,7 @@ app.bootState = {
     },
 
     create: function() {
-        game.stage.backgroundColor = '#3498db';
+        game.stage.backgroundColor = '#591F00';
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         // trigger the loading screen

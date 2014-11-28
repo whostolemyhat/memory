@@ -25,7 +25,7 @@ app.loadState = {
 
         // load all assets
         game.load.spritesheet('mute', 'img/menu/muteButton.png', 28, 22);
-        game.load.spritesheet('play', 'img/menu/play.png', 300, 50);
+        game.load.spritesheet('play', 'img/menu/play.png', 200, 50);
 
         game.load.image('box', 'img/box.png');
         game.load.image('pixel', 'img/pixel.png');
