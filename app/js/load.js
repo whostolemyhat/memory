@@ -5,6 +5,45 @@
 */
 var app = app || {};
 
+app.star = 'star';
+app.rings = 'rings';
+app.hex = 'hex';
+app.square = 'square';
+app.diamond = 'diamond';
+app.circle = 'circle';
+// app.lines = 'lines';
+app.triangle = 'triangle';
+
+// shape colours
+// app.fire = Phaser.Color.createColor(214,147,92); // then call Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b)
+app.navyBlue = Phaser.Color.createColor(60, 60, 100);
+app.brown = Phaser.Color.createColor(185,138,122);
+// app.lilac = Phaser.Color.createColor(170,173,204);
+// app.life = Phaser.Color.createColor(217,200,182);
+app.purple = Phaser.Color.createColor(138,76,124);
+// app.grey = Phaser.Color.createColor(109,127,142);
+app.russet = Phaser.Color.createColor(174,70,0);
+// app.orange = Phaser.Color.createColor(222,73,30);
+app.amber = Phaser.Color.createColor(255,149,22);
+app.pink = Phaser.Color.createColor(244,160,170);
+app.chocolate = Phaser.Color.createColor(89,31,0);
+
+// ui colours
+app.white = Phaser.Color.createColor(255, 255, 255);
+app.darkGrey = Phaser.Color.createColor(74,72,73);
+app.peach = Phaser.Color.createColor(242,216,179);
+
+app.allColours = [app.chocolate, app.brown, app.purple, app.russet, app.amber, app.pink, app.navyBlue];
+app.allShapes = [app.star, app.rings, app.hex, app.square, app.diamond, app.circle, app.triangle];
+
+app.pickColour = function() {
+    return app.allColours[Math.floor(Math.random() * app.allColours.length)];
+};
+
+app.pickShape = function() {
+    return app.allShapes[Math.floor(Math.random() * app.allShapes.length)];
+};
+
 app.loadState = {
     preload: function() {
         var loadingLabel = game.add.text(

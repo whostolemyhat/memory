@@ -281,9 +281,9 @@ app.playState = {
         this.finalEmitter = game.add.emitter(0, 0, 0);
         this.finalEmitter.width = game.world.width / 2;
         this.finalEmitter.makeParticles('pixel');
-        this.secondEmitter.setYSpeed(-80, 80);
-        this.secondEmitter.setXSpeed(-80, 80);
-        this.secondEmitter.gravity = 10;
+        this.finalEmitter.setYSpeed(-80, 80);
+        this.finalEmitter.setXSpeed(-80, 80);
+        this.finalEmitter.gravity = 10;
         this.finalEmitter.x = game.world.centerX;
         this.finalEmitter.y = 0;
         this.finalEmitter.forEach(function(particle) {
