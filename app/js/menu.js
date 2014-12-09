@@ -9,18 +9,18 @@ app.menuState = {
     create: function() {
         game.stage.backgroundColor = '#f2d8b3';
 
-        this.finalEmitter = game.add.emitter(0, 0, 15);
-        this.finalEmitter.width = game.world.width / 2;
+        this.finalEmitter = game.add.emitter(game.world.centerX, 20, 15);
+        // this.finalEmitter.width = game.world.width / 2;
         this.finalEmitter.makeParticles(app.allShapes);
-        this.finalEmitter.x = game.world.centerX;
-        this.finalEmitter.y = -20;
+        // this.finalEmitter.x = game.world.centerX;
+        // this.finalEmitter.y = 20;
         this.finalEmitter.forEach(function(particle) {
             var colour = app.pickColour();
             particle.tint = Phaser.Color.getColor(colour.r, colour.g, colour.b);
         });
 
         // explode, lifespan, frequency, quantity
-        this.finalEmitter.start(false, 5000);
+        this.finalEmitter.start(false, 5000, 20);
 
         // var nameLabel = game.add.text(
         //     game.world.centerX,
