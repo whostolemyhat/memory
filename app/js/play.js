@@ -19,7 +19,7 @@ app.playState = {
         //     5,
         //     'Moves: ' + this.totalMoves,
         //     {
-        //         font: '20px Arial',
+        //         font: '20px Merriweather',
         //         fill: '#fff',
         //         align: 'center'
         //     }
@@ -308,8 +308,8 @@ app.playState = {
             game.world.centerY - 80,
             'You win!',
             {
-                font: '40px Arial',
-                fill: '#3c3c64',
+                font: '40px Merriweather',
+                fill: '#372409',
                 align: 'center'
             }
         );
@@ -320,8 +320,8 @@ app.playState = {
             game.world.centerY - 20,
             'Total moves: ' + game.global.totalMoves,
             {
-                font: '20px Arial',
-                fill: '#591F00', // chocolate
+                font: '20px Merriweather',
+                fill: '#372409', // chocolate
                 align: 'center'
             }
         );
@@ -332,8 +332,8 @@ app.playState = {
             game.world.centerY + 20,
             'Best score: ' + localStorage.getItem('highScore'),
             {
-                font: '20px Arial',
-                fill: '#591F00',
+                font: '20px Merriweather',
+                fill: '#372409',
                 align: 'center'
             }
         );

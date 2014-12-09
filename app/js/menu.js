@@ -22,18 +22,19 @@ app.menuState = {
         // explode, lifespan, frequency, quantity
         this.finalEmitter.start(false, 5000);
 
-        var nameLabel = game.add.text(
-            game.world.centerX,
-            -50,
-            'Memory Game',
-            {
-                font: '40px Arial',
-                fill: '#fff',
-                align: 'center'
-            }
-        );
-        nameLabel.anchor.setTo(0.5, 0.5);
-        game.add.tween(nameLabel).to({ y: game.world.centerY - 70 }, 1000).easing(Phaser.Easing.Bounce.Out).start();
+        // var nameLabel = game.add.text(
+        //     game.world.centerX,
+        //     -50,
+        //     'Pairs',
+        //     {
+        //         font: '40px Arial',
+        //         fill: '#8a4c7c',
+        //         align: 'center'
+        //     }
+        // );
+        var nameLabel = game.add.sprite(game.world.centerX, -160, 'header');
+        nameLabel.anchor.setTo(0.5, 0);
+        game.add.tween(nameLabel).to({ y: 0 }, 1000).easing(Phaser.Easing.Bounce.Out).start();
 
         if(!localStorage.getItem('highScore')) {
             localStorage.setItem('highScore', 0);
@@ -60,7 +61,7 @@ app.menuState = {
 
         var playLink = game.add.button(
             game.world.centerX,
-            game.world.centerY + 100,
+            game.world.centerY + 120,
             'play',
             this.start,
             this,
@@ -68,6 +69,7 @@ app.menuState = {
             0
         );
         playLink.anchor.setTo(0.5, 0.5);
+        playLink.input.useHandCursor = true;
 
         // game.add.tween(playLink).to({ angle: -2 }, 500).to({ angle: 2 }, 500).loop().start();
         game.add.tween(playLink.scale).to({ x: 1.2, y: 1.2 }, 300).to({ x: 1, y: 1 }, 300).delay(1500).loop().start();
@@ -78,11 +80,11 @@ app.menuState = {
         // Debug - just start
         // game.state.start('play');
 
-        this.muteButton = game.add.button(20, 20, 'mute', this.toggleSound, this);
-        this.muteButton.input.useHandCursor = true;
-        if(game.sound.mute) {
-            this.muteButton.frame = 1;
-        }
+        // this.muteButton = game.add.button(20, 20, 'mute', this.toggleSound, this);
+        // this.muteButton.input.useHandCursor = true;
+        // if(game.sound.mute) {
+        //     this.muteButton.frame = 1;
+        // }
     },
 
     start: function() {
