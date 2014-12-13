@@ -321,7 +321,7 @@ app.playState = {
             'Total moves: ' + game.global.totalMoves,
             {
                 font: '20px Merriweather',
-                fill: '#372409', // chocolate
+                fill: '#372409',
                 align: 'center'
             }
         );

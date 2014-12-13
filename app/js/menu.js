@@ -10,10 +10,7 @@ app.menuState = {
         game.stage.backgroundColor = '#f2d8b3';
 
         this.finalEmitter = game.add.emitter(game.world.centerX, 20, 15);
-        // this.finalEmitter.width = game.world.width / 2;
         this.finalEmitter.makeParticles(app.allShapes);
-        // this.finalEmitter.x = game.world.centerX;
-        // this.finalEmitter.y = 20;
         this.finalEmitter.forEach(function(particle) {
             var colour = app.pickColour();
             particle.tint = Phaser.Color.getColor(colour.r, colour.g, colour.b);
@@ -22,16 +19,6 @@ app.menuState = {
         // explode, lifespan, frequency, quantity
         this.finalEmitter.start(false, 5000, 20);
 
-        // var nameLabel = game.add.text(
-        //     game.world.centerX,
-        //     -50,
-        //     'Pairs',
-        //     {
-        //         font: '40px Arial',
-        //         fill: '#8a4c7c',
-        //         align: 'center'
-        //     }
-        // );
         var nameLabel = game.add.sprite(game.world.centerX, -160, 'header');
         nameLabel.anchor.setTo(0.5, 0);
         game.add.tween(nameLabel).to({ y: 0 }, 1000).easing(Phaser.Easing.Bounce.Out).start();

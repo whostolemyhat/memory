@@ -1,0 +1,28 @@
+body {
+    background: #f2d8b3;
+}
+
+#game {
+    display: block;
+    margin: auto;
+    width: 320px;
+}
+
+p {
+    width: 320px;
+    margin: 0 auto 1.2em;
+}
+
+a,
+a:visited {
+    display: inline-block;
+    background: #372409;
+    color: white;
+    padding: 2px;
+    text-decoration: none;
+    margin: 0 0 2px;
+
+    &:hover {
+        background: #624111;
+    }
+}

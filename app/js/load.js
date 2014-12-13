@@ -63,21 +63,21 @@ app.loadState = {
         game.load.setPreloadSprite(progressBar);
 
         // load all assets
-        game.load.spritesheet('mute', 'img/menu/muteButton.png', 28, 22);
-        game.load.spritesheet('play', 'img/menu/play.png', 200, 50);
-        game.load.image('header', 'img/menu/header.png');
+        game.load.spritesheet('mute', '/static/pairs/img/menu/muteButton.png', 28, 22);
+        game.load.spritesheet('play', '/static/pairs/img/menu/play.png', 200, 50);
+        game.load.image('header', '/static/pairs/img/menu/header.png');
 
-        game.load.image('box', 'img/box.png');
-        game.load.image('pixel', 'img/pixel.png');
-        game.load.image('circle', 'img/icons/circle.png');
-        game.load.image('diamond', 'img/icons/diamond.png');
-        game.load.image('hex', 'img/icons/hex.png');
-        game.load.image('rings', 'img/icons/rings.png');
-        game.load.image('square', 'img/icons/square.png');
-        game.load.image('star', 'img/icons/star.png');
-        game.load.image('triangle', 'img/icons/triangle.png');
+        game.load.image('box', '/static/pairs/img/box.png');
+        game.load.image('pixel', '/static/pairs/img/pixel.png');
+        game.load.image('circle', '/static/pairs/img/icons/circle.png');
+        game.load.image('diamond', '/static/pairs/img/icons/diamond.png');
+        game.load.image('hex', '/static/pairs/img/icons/hex.png');
+        game.load.image('rings', '/static/pairs/img/icons/rings.png');
+        game.load.image('square', '/static/pairs/img/icons/square.png');
+        game.load.image('star', '/static/pairs/img/icons/star.png');
+        game.load.image('triangle', '/static/pairs/img/icons/triangle.png');
         
-        game.load.image('pause', 'img/menu/pause.png');
+        game.load.image('pause', '/static/pairs/img/menu/pause.png');
     },
 
     create: function() {
