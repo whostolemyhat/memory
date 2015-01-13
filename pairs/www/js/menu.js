@@ -3,16 +3,16 @@
 /**
 * Show the menu which allows the game to start
 */
-var app = app || {};
+var pairs = pairs || {};
 
-app.menuState = {
+pairs.menuState = {
     create: function() {
         game.stage.backgroundColor = '#f2d8b3';
 
         this.finalEmitter = game.add.emitter(game.world.centerX, 20, 15);
-        this.finalEmitter.makeParticles(app.allShapes);
+        this.finalEmitter.makeParticles(pairs.allShapes);
         this.finalEmitter.forEach(function(particle) {
-            var colour = app.pickColour();
+            var colour = pairs.pickColour();
             particle.tint = Phaser.Color.getColor(colour.r, colour.g, colour.b);
         });
 
@@ -83,3 +83,5 @@ app.menuState = {
         this.muteButton.frame = game.sound.mute ? 1 : 0;
     }
 };
+
+

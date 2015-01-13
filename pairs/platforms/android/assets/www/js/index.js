@@ -19,6 +19,7 @@
 var app = {
     // Application Constructor
     initialize: function() {
+        console.log('pairs: app init');
         this.bindEvents();
     },
     // Bind Event Listeners
@@ -34,6 +35,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        console.log('pairs: device ready');
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -49,3 +51,4 @@ var app = {
 };
 
 app.initialize();
+console.log('pairs: index.js');

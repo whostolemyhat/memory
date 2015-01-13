@@ -10,7 +10,8 @@ body {
 
 p {
     width: 320px;
-    margin: 0 auto 1.2em;
+    font-size: 1.2rem;
+    margin: 0 auto 1.5rem;
 }
 
 a,
@@ -25,4 +26,19 @@ a:visited {
     &:hover {
         background: #624111;
     }
+}
+
+.description {
+    margin-top: 3em;
+    font-size: 1.7rem;
+    line-height: 2rem;
+}
+
+.credits {
+    text-align: right;
+}
+
+h2 {
+    width: 320px;
+    margin: 0 auto 2em;
 }

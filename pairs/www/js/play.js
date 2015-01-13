@@ -1,8 +1,9 @@
 /* global game, _, Phaser, Tile */
-var app = app || {};
+var pairs = pairs || {};
 
-app.playState = {
+pairs.playState = {
     create: function() {
+
         this.windowWidth = 320;
         this.windowHeight = 480;
         this.revealSpeed = 250; // speed to show/hide in ms
@@ -157,7 +158,7 @@ app.playState = {
     },
 
     drawBoard: function(board) {
-        var self = app.playState;
+        var self = pairs.playState;
 
         _.each(_.flatten(board), function(tile) {
             var coords = self.boxCoordsInPixels(tile.x, tile.y);
@@ -195,7 +196,7 @@ app.playState = {
     * Convert pixel coords into the box at that position
     */
     getBoxAtPos: function(x, y) {
-        var self = app.playState;
+        var self = pairs.playState;
 
         return _.find(self.tiles, function(tile) {
 
@@ -211,7 +212,7 @@ app.playState = {
     },
 
     boxClick: function() {
-        var self = app.playState;
+        var self = pairs.playState;
         if(!self.animating) {
 
             var tile = self.getBoxAtPos(game.input.x, game.input.y);
@@ -263,7 +264,7 @@ app.playState = {
 
     // // boxes = array of boxes to cover over
     coverBoxesAnimation: function(tiles) {
-        var self = app.playState;
+        var self = pairs.playState;
 
         _.each(tiles, function(tile) {
             var delay = (100 * tile.x) + (50 * tile.y);
@@ -402,4 +403,5 @@ app.playState = {
 
     // }
 };
+
 

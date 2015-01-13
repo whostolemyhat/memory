@@ -2,11 +2,11 @@
 /**
 * Basic set up, show progress bar
 */
-var app = app || {};
+var pairs = pairs || {};
 
-app.bootState = {
+pairs.bootState = {
     preload: function() {
-        game.load.image('progressBar', '/static/pairs/img/menu/progress.png');
+        game.load.image('progressBar', 'img/menu/progress.png');
     },
 
     create: function() {
