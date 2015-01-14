@@ -2,6 +2,11 @@
 
 var pairs = pairs || {};
 
+pairs.SCREEN_WIDTH = $(window).width();
+pairs.SCREEN_HEIGHT = $(window).height();
+pairs.MAX_WIDTH = 600;
+pairs.MAX_HEIGHT = 800;
+
 var game = new Phaser.Game(320, 480, Phaser.AUTO, 'game');
 
 game.global = {
@@ -19,11 +24,3 @@ game.state.add('play', pairs.playState);
 document.addEventListener('deviceready', function() {
     game.state.start('boot');
 });
-
-document.onreadystatechange = function () {
-
-    // check the value - if it's 'interactive' then the DOM has loaded
-    if (document.readyState === 'interactive') {
-        console.log('pairs: dom ready');
-    }
-};

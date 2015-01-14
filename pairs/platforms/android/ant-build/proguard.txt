@@ -1,3 +1,6 @@
-# view AndroidManifest.xml #generated:6
+# view AndroidManifest.xml #generated:12
+-keep class com.google.android.gms.ads.AdActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:5
 -keep class uk.dontexpectanythingsensible.pairs.CordovaApp { <init>(...); }
 
