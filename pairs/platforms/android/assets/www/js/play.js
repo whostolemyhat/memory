@@ -4,7 +4,7 @@ var pairs = pairs || {};
 pairs.playState = {
     create: function() {
 
-        this.windowWidth = 320;
+        this.windowWidth = 360;
         this.windowHeight = 480;
         this.revealSpeed = 250; // speed to show/hide in ms
 

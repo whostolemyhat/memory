@@ -5,13 +5,29 @@ body {
 #game {
     display: block;
     margin: auto;
-    width: 320px;
+    width: 360px;
 }
 
 p {
-    width: 320px;
+    width: 360px;
     font-size: 1.2rem;
     margin: 0 auto 1.5rem;
+}
+
+.description {
+    margin-top: 3em;
+    font-size: 1.7rem;
+    line-height: 2rem;
+}
+
+.credits {
+    text-align: right;
+    margin-bottom: 0;
+}
+
+h2 {
+    width: 360px;
+    margin: 0.5rem auto 1.4rem;
 }
 
 a,
@@ -26,19 +42,4 @@ a:visited {
     &:hover {
         background: #624111;
     }
-}
-
-.description {
-    margin-top: 3em;
-    font-size: 1.7rem;
-    line-height: 2rem;
-}
-
-.credits {
-    text-align: right;
-}
-
-h2 {
-    width: 320px;
-    margin: 0.5rem auto 1.4rem;
 }

@@ -2,12 +2,7 @@
 
 var pairs = pairs || {};
 
-pairs.SCREEN_WIDTH = $(window).width();
-pairs.SCREEN_HEIGHT = $(window).height();
-pairs.MAX_WIDTH = 600;
-pairs.MAX_HEIGHT = 800;
-
-var game = new Phaser.Game(320, 480, Phaser.AUTO, 'game');
+var game = new Phaser.Game(360, 480, Phaser.AUTO, 'game');
 
 game.global = {
     score: 0
