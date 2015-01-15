@@ -41,6 +41,7 @@ E:\1gam\memory\pairs\platforms\android\assets\www\plugins \
 E:\1gam\memory\pairs\platforms\android\assets\www\css\main.css \
 E:\1gam\memory\pairs\platforms\android\assets\www\img\box.png \
 E:\1gam\memory\pairs\platforms\android\assets\www\img\icons \
+E:\1gam\memory\pairs\platforms\android\assets\www\img\logo-orig.png \
 E:\1gam\memory\pairs\platforms\android\assets\www\img\logo.png \
 E:\1gam\memory\pairs\platforms\android\assets\www\img\menu \
 E:\1gam\memory\pairs\platforms\android\assets\www\img\pixel.png \
