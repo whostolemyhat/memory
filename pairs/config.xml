@@ -2,10 +2,10 @@
 <widget id="uk.dontexpectanythingsensible.pairs" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Pairs</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        A memory game - match the pairs of shapes in the fewest moves possible!
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="hello@jamestease.co.uk" href="http://jamestease.co.uk">
+        James Tease
     </author>
     <content src="index.html" />
     <access origin="*" />
