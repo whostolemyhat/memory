@@ -1,0 +1,16 @@
+{
+  "name": "pairs",
+  "main": "index.html",
+  "description": "A memory puzzle game - match the pairs of shapes in the fewest moves possible",
+  "version": "1.0.0",
+  "keywords": ["puzzle", "pairs", "memory", "game", "phaser"],
+  "window": {
+    "title": "Pairs",
+    "icon": "img/logo.png",
+    "toolbar": false,
+    "width": 320,
+    "height": 480,
+    "min_width": 320,
+    "min_height": 480
+  }
+}
