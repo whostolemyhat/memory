@@ -27,25 +27,6 @@ pairs.menuState = {
             localStorage.setItem('highScore', 0);
         }
 
-        // if(localStorage.getItem('highScore') !== 0) {
-        //     if(game.global.totalMoves < localStorage.getItem('highScore')) {
-        //         localStorage.setItem('highScore', game.global.totalMoves);
-        //     }
-        // }
-
-
-        // start text
-        // var startLabel = game.add.text(
-        //     game.world.centerX,
-        //     game.world.centerY + 60,
-        //     'press up to start',
-        //     {
-        //         font: '20px Arial',
-        //         fill: '#fff'
-        //     }
-        // );
-        // startLabel.anchor.setTo(0.5, 0.5);
-
         var playLink = game.add.button(
             game.world.centerX,
             game.world.centerY + 120,
@@ -58,20 +39,18 @@ pairs.menuState = {
         playLink.anchor.setTo(0.5, 0.5);
         playLink.input.useHandCursor = true;
 
-        // game.add.tween(playLink).to({ angle: -2 }, 500).to({ angle: 2 }, 500).loop().start();
         game.add.tween(playLink.scale).to({ x: 1.2, y: 1.2 }, 300).to({ x: 1, y: 1 }, 300).delay(1500).loop().start();
 
-        // var upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
-        // upKey.onDown.addOnce(this.start, this);
-
-        // Debug - just start
-        // game.state.start('play');
-
-        // this.muteButton = game.add.button(20, 20, 'mute', this.toggleSound, this);
-        // this.muteButton.input.useHandCursor = true;
-        // if(game.sound.mute) {
-        //     this.muteButton.frame = 1;
-        // }
+        var creditsLink = game.add.button(
+            game.world.centerX,
+            game.world.centerY + 165,
+            'credits',
+            pairs.credits,
+            this,
+            1,
+            0
+        );
+        creditsLink.anchor.setTo(0.5, 0.5);
     },
 
     start: function() {
@@ -83,5 +62,11 @@ pairs.menuState = {
         this.muteButton.frame = game.sound.mute ? 1 : 0;
     }
 };
+
+
+pairs.credits = function () {
+    var credits = document.querySelector('.credits');
+    credits.classList.add('credits--visible');
+}
 
 

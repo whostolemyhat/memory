@@ -10,6 +10,12 @@ pairs.bootState = {
     },
 
     create: function() {
+        // scale the whole game omg
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.scale.pageAlignHorizontally = true;
+        // game.scale.pageAlignVertically = true;
+        game.scale.setScreenSize(true);
+        
         game.stage.backgroundColor = '#f2d8b3';
         game.physics.startSystem(Phaser.Physics.ARCADE);
 

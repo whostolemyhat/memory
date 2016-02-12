@@ -8,6 +8,9 @@
         <param name="android-package" value="com.rjfun.cordova.admob.AdMobPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
     <name>Pairs</name>
     <description>
         A memory game - match the pairs of shapes in the fewest moves possible!
@@ -17,4 +20,8 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <icon src="www/img/logo.png" />
+    <allow-navigation href="https://*.jamestease.co.uk/*" />
+    <allow-navigation href="https://play.google.com/*" />
+    <allow-navigation href="https://twitter.com/*" />
 </widget>

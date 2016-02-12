@@ -9,4 +9,8 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <icon src="www/img/logo.png" />
+    <allow-navigation href="https://*.jamestease.co.uk/*" />
+    <allow-navigation href="https://play.google.com/*" />
+    <allow-navigation href="https://twitter.com/*" />
 </widget>

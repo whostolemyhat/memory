@@ -46,7 +46,10 @@
         }
     },
     "installed_plugins": {
-        "com.google.cordova.admob": {
+        "cordova-plugin-admobpro": {
+            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairs"
+        },
+        "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairs"
         }
     },
@@ -54,13 +57,7 @@
         "com.connectivity.monitor": {
             "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairs"
         },
-        "android.support.v4": {
-            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairs"
-        },
-        "com.rjfun.cordova.extension": {
-            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairs"
-        },
-        "com.google.playservices": {
+        "cordova-plugin-extension": {
             "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairs"
         }
     }
