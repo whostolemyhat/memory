@@ -29,7 +29,7 @@ pairs.menuState = {
 
         var playLink = game.add.button(
             game.world.centerX,
-            game.world.centerY + 120,
+            game.world.centerY + 110,
             'play',
             this.start,
             this,
@@ -43,7 +43,7 @@ pairs.menuState = {
 
         var creditsLink = game.add.button(
             game.world.centerX,
-            game.world.centerY + 165,
+            game.world.centerY + 170,
             'credits',
             pairs.credits,
             this,

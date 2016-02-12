@@ -15,16 +15,6 @@ pairs.playState = {
         this.boardHeight = 6;
 
         game.global.totalMoves = 0;
-        // this.scoreText = game.add.text(
-        //     20,
-        //     5,
-        //     'Moves: ' + this.totalMoves,
-        //     {
-        //         font: '20px Merriweather',
-        //         fill: '#fff',
-        //         align: 'center'
-        //     }
-        // );
 
         this.deadAlpha = 0.4;
 
@@ -351,6 +341,17 @@ pairs.playState = {
         );
         playLink.anchor.setTo(0.5, 0.5);
         game.add.tween(playLink.scale).to({ x: 1.2, y: 1.2 }, 300).to({ x: 1, y: 1 }, 300).delay(1500).loop().start();
+
+        var creditsLink = game.add.button(
+            game.world.centerX,
+            game.world.centerY + 180,
+            'credits',
+            pairs.credits,
+            this,
+            1,
+            0
+        );
+        creditsLink.anchor.setTo(0.5, 0.5);
     },
 
     replay: function() {
@@ -398,10 +399,6 @@ pairs.playState = {
         self.secondSelected = '';
         self.animating = false;
     }
-
-    // updateScore: function(score) {
-
-    // }
 };
 
 
