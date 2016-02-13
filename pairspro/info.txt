@@ -1,0 +1,44 @@
+Node version: v5.0.0
+
+Cordova version: 6.0.0
+
+Config.xml file: 
+
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="uk.dontexpectanythingsensible.pairspro" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Pairs</name>
+    <description>
+        A memory game - match the pairs of shapes in the fewest moves possible!
+    </description>
+    <author email="hello@jamestease.co.uk" href="http://jamestease.co.uk">
+        James Tease
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+</widget>
+
+
+Plugins: 
+
+android.support.v4,com.connectivity.monitor,com.google.playservices,com.rjfun.cordova.extension,cordova-plugin-admobpro,cordova-plugin-googleplayservices
+
+Android platform:
+
+Available Android targets:
+----------
+id: 1 or "android-16"
+     Name: Android 4.1.2
+     Type: Platform
+     API level: 16
+     Revision: 5
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : default/x86
+----------
+id: 2 or "android-23"
+     Name: Android 6.0
+     Type: Platform
+     API level: 23
+     Revision: 2
+     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
+ Tag/ABIs : no ABIs.
+
