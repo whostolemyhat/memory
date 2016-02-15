@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        <title>Pairs memory game</title>
+        <script type="text/javascript" src="cordova.js"></script>
+    </head>
+    <body>
+        <div class="app">
+
+            <div id="game" style="background:black"></div>
+
+            <div class="credits">
+                <a href="#" class="credits__close">&nbsp;Back&nbsp;</a>
+
+                <p class="description">Match two tiles with the same colour and shape in the fewest moves possible!</p>
+
+                <h2>Credits</h2>
+                <p>Created by <a onclick="window.open('https://jamestease.co.uk', '_system', 'location=yes');">James Tease</a></p>
+                <p>Follow me on Twitter <a onclick="window.open('https://twitter.com/whostolemyhat', '_system', 'location=yes');">@whostolemyhat</a></p>
+
+                <p>Enjoyed this? <a onclick="window.open('https://play.google.com/store/apps/details?id=uk.dontexpectanythingsensible.pairspro', '_system', 'location=yes');">
+                    Leave a review!</a>
+                </p>
+                <p><a onclick="window.open('https://www.jamestease.co.uk/games/', '_system', 'location=yes');" title="More games">More games</a> I've made.</p>
+            </div>
+
+        </div>
+        
+        <script>
+            var close = document.querySelector('.credits__close');
+            close.addEventListener('click', function(e) {
+                e.preventDefault();
+                var credits = document.querySelector('.credits');
+                credits.classList.remove('credits--visible');
+            });
+        </script>
+
+        <script src="js/vendor/jquery-2.1.1.min.js"></script>
+        <script src="js/vendor/underscore-min.js"></script>
+        <script src="js/vendor/phaser.min.js"></script>
+
+        <script src="js/Tile.js"></script>
+        
+        <script src="js/boot.js"></script>
+        <script src="js/load.js"></script>
+        <script src="js/menu.js"></script>
+        <script src="js/play.js"></script>
+
+        <script src="js/game.js"></script>
+
+    </body>
+</html>
+

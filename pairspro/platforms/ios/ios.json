@@ -1,0 +1,68 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"connectivity\"><param name=\"ios-package\" value=\"CDVReachability\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "*-Info.plist": {
+                "parents": {
+                    "NSAppTransportSecurity": [
+                        {
+                            "xml": "<dict><key>NSAllowsArbitraryLoads</key><true /></dict>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "com.connectivity.monitor": {
+            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
+        },
+        "cordova-plugin-googleplayservices": {
+            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
+        },
+        "cordova-plugin-extension": {
+            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
+        }
+    },
+    "dependent_plugins": {},
+    "modules": [
+        {
+            "file": "plugins/com.connectivity.monitor/www/connectivity.js",
+            "id": "com.connectivity.monitor.connectivity",
+            "pluginId": "com.connectivity.monitor",
+            "clobbers": [
+                "window.connectivity"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+            "id": "cordova-plugin-inappbrowser.inappbrowser",
+            "pluginId": "cordova-plugin-inappbrowser",
+            "clobbers": [
+                "cordova.InAppBrowser.open",
+                "window.open"
+            ]
+        }
+    ]
+}

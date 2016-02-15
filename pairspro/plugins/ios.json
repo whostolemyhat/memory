@@ -1,0 +1,24 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.connectivity.monitor": {
+            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
+        },
+        "cordova-plugin-googleplayservices": {
+            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
+        },
+        "cordova-plugin-extension": {
+            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
+        }
+    },
+    "dependent_plugins": {}
+}
