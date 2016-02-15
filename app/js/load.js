@@ -3,48 +3,48 @@
 /**
 * load all the assets
 */
-var app = app || {};
+var pairs = pairs || {};
 
-app.star = 'star';
-app.rings = 'rings';
-app.hex = 'hex';
-app.square = 'square';
-app.diamond = 'diamond';
-app.circle = 'circle';
-// app.lines = 'lines';
-app.triangle = 'triangle';
+pairs.star = 'star';
+pairs.rings = 'rings';
+pairs.hex = 'hex';
+pairs.square = 'square';
+pairs.diamond = 'diamond';
+pairs.circle = 'circle';
+// pairs.lines = 'lines';
+pairs.triangle = 'triangle';
 
 // shape colours
-// app.fire = Phaser.Color.createColor(214,147,92); // then call Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b)
-app.navyBlue = Phaser.Color.createColor(60, 60, 100);
-app.brown = Phaser.Color.createColor(185,138,122);
-// app.lilac = Phaser.Color.createColor(170,173,204);
-// app.life = Phaser.Color.createColor(217,200,182);
-app.purple = Phaser.Color.createColor(138,76,124);
-// app.grey = Phaser.Color.createColor(109,127,142);
-app.russet = Phaser.Color.createColor(174,70,0);
-// app.orange = Phaser.Color.createColor(222,73,30);
-app.amber = Phaser.Color.createColor(255,149,22);
-app.pink = Phaser.Color.createColor(244,160,170);
-app.chocolate = Phaser.Color.createColor(89,31,0);
+// pairs.fire = Phaser.Color.createColor(214,147,92); // then call Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b)
+pairs.navyBlue = Phaser.Color.createColor(60, 60, 100);
+pairs.brown = Phaser.Color.createColor(185,138,122);
+// pairs.lilac = Phaser.Color.createColor(170,173,204);
+// pairs.life = Phaser.Color.createColor(217,200,182);
+pairs.purple = Phaser.Color.createColor(138,76,124);
+// pairs.grey = Phaser.Color.createColor(109,127,142);
+pairs.russet = Phaser.Color.createColor(174,70,0);
+// pairs.orange = Phaser.Color.createColor(222,73,30);
+pairs.amber = Phaser.Color.createColor(255,149,22);
+pairs.pink = Phaser.Color.createColor(244,160,170);
+pairs.chocolate = Phaser.Color.createColor(89,31,0);
 
 // ui colours
-app.white = Phaser.Color.createColor(255, 255, 255);
-app.darkGrey = Phaser.Color.createColor(74,72,73);
-app.peach = Phaser.Color.createColor(242,216,179);
+pairs.white = Phaser.Color.createColor(255, 255, 255);
+pairs.darkGrey = Phaser.Color.createColor(74,72,73);
+pairs.peach = Phaser.Color.createColor(242,216,179);
 
-app.allColours = [app.chocolate, app.brown, app.purple, app.russet, app.amber, app.pink, app.navyBlue];
-app.allShapes = [app.star, app.rings, app.hex, app.square, app.diamond, app.circle, app.triangle];
+pairs.allColours = [pairs.chocolate, pairs.brown, pairs.purple, pairs.russet, pairs.amber, pairs.pink, pairs.navyBlue];
+pairs.allShapes = [pairs.star, pairs.rings, pairs.hex, pairs.square, pairs.diamond, pairs.circle, pairs.triangle];
 
-app.pickColour = function() {
-    return app.allColours[Math.floor(Math.random() * app.allColours.length)];
+pairs.pickColour = function() {
+    return pairs.allColours[Math.floor(Math.random() * pairs.allColours.length)];
 };
 
-app.pickShape = function() {
-    return app.allShapes[Math.floor(Math.random() * app.allShapes.length)];
+pairs.pickShape = function() {
+    return pairs.allShapes[Math.floor(Math.random() * pairs.allShapes.length)];
 };
 
-app.loadState = {
+pairs.loadState = {
     preload: function() {
         var loadingLabel = game.add.text(
             game.world.centerX,
@@ -63,24 +63,26 @@ app.loadState = {
         game.load.setPreloadSprite(progressBar);
 
         // load all assets
-        game.load.spritesheet('mute', '/static/pairs/img/menu/muteButton.png', 28, 22);
-        game.load.spritesheet('play', '/static/pairs/img/menu/play.png', 200, 50);
-        game.load.image('header', '/static/pairs/img/menu/header.png');
+        game.load.spritesheet('mute', 'img/menu/muteButton.png', 28, 22);
+        game.load.spritesheet('play', 'img/menu/play.png', 200, 50);
+        game.load.spritesheet('credits', 'img/menu/credits.png', 200, 50);
+        game.load.image('header', 'img/menu/header.png');
 
-        game.load.image('box', '/static/pairs/img/box.png');
-        game.load.image('pixel', '/static/pairs/img/pixel.png');
-        game.load.image('circle', '/static/pairs/img/icons/circle.png');
-        game.load.image('diamond', '/static/pairs/img/icons/diamond.png');
-        game.load.image('hex', '/static/pairs/img/icons/hex.png');
-        game.load.image('rings', '/static/pairs/img/icons/rings.png');
-        game.load.image('square', '/static/pairs/img/icons/square.png');
-        game.load.image('star', '/static/pairs/img/icons/star.png');
-        game.load.image('triangle', '/static/pairs/img/icons/triangle.png');
+        game.load.image('box', 'img/box.png');
+        game.load.image('pixel', 'img/pixel.png');
+        game.load.image('circle', 'img/icons/circle.png');
+        game.load.image('diamond', 'img/icons/diamond.png');
+        game.load.image('hex', 'img/icons/hex.png');
+        game.load.image('rings', 'img/icons/rings.png');
+        game.load.image('square', 'img/icons/square.png');
+        game.load.image('star', 'img/icons/star.png');
+        game.load.image('triangle', 'img/icons/triangle.png');
         
-        game.load.image('pause', '/static/pairs/img/menu/pause.png');
+        game.load.image('pause', 'img/menu/pause.png');
     },
 
     create: function() {
         game.state.start('menu');
     }
 };
+

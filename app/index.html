@@ -21,10 +21,20 @@
 
         <div id="game"></div>
 
-        <p class="description">Match two tiles with the same colour and shape in the fewest moves possible!</p>
-        <p>Created by <a href="https://jamestease.co.uk" target="_blank">whostolemyhat</a>. 
-            <a href="https://twitter.com/whostolemyhat" target="_blank">Follow me on Twitter here</a> or
-            <a href="https://jamestease.co.uk/projects">see more games here</a>.</p>
+        <div class="credits">
+            <a href="#" class="credits__close">Close</a>
+
+            <p class="description">Match two tiles with the same colour and shape in the fewest moves possible!</p>
+
+            <h2>Credits</h2>
+            <p>Created by <a href="https://jamestease.co.uk">James Tease</a></p>
+            <p>Follow me on Twitter <a href="https://twitter.com/whostolemyhat">@whostolemyhat</a></p>
+
+            <p>Enjoyed this? <a href="https://play.google.com/store/apps/details?id=uk.dontexpectanythingsensible.pairs">
+                Leave a review!</a>
+            </p>
+            <p><a href="https://www.jamestease.co.uk/games/" title="More games">More games</a> I've made.</p>
+        </div>
             
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -40,6 +50,15 @@
         <script src="js/play.js"></script>
 
         <script src="js/game.js"></script>
+
+        <script>
+            var close = document.querySelector('.credits__close');
+            close.addEventListener('click', function(e) {
+                e.preventDefault();
+                var credits = document.querySelector('.credits');
+                credits.classList.remove('credits--visible');
+            });
+        </script>
 
         <script>
             // (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

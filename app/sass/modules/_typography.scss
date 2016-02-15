@@ -61,28 +61,3 @@ h6,
 .zeta {
     @include px('font-size', $headingZeta);
 }   
-
-/* Links
-   ========================================================================== */
-
-a { 
-    color: $linkColour; 
-    background: transparent;
-}
-
-a:visited { 
-    color: $linkVisited; 
-}
-
-a:hover { 
-    color: $linkHover; 
-}
-
-a:focus { 
-    outline: thin dotted; 
-    color: $linkFocus; 
-}
-
-a:active { 
-    color: $linkActive; 
-}
