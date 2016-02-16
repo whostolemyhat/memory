@@ -47,4 +47,5 @@
     <allow-navigation href="https://*.jamestease.co.uk/*" />
     <allow-navigation href="https://play.google.com/*" />
     <allow-navigation href="https://twitter.com/*" />
+    <preference name="orientation" value="portrait" />
 </widget>

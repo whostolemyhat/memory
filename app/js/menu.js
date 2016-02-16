@@ -11,13 +11,19 @@ pairs.menuState = {
 
         this.finalEmitter = game.add.emitter(game.world.centerX, 20, 15);
         this.finalEmitter.makeParticles(pairs.allShapes);
+
+
+        // explode, lifespan, frequency, quantity
+        this.finalEmitter.setScale(0.2, 0.2, 0.3, 0.3);
+        this.finalEmitter.start(false, 5000, 20);
         this.finalEmitter.forEach(function(particle) {
             var colour = pairs.pickColour();
             particle.tint = Phaser.Color.getColor(colour.r, colour.g, colour.b);
+            // particle.scale.x = 0.3;
+            // particle.scale.y = 1.3;
+            // particle.setScaleMinMax(0.2, 0.3);
         });
 
-        // explode, lifespan, frequency, quantity
-        this.finalEmitter.start(false, 5000, 20);
 
         var nameLabel = game.add.sprite(game.world.centerX, -160, 'header');
         nameLabel.anchor.setTo(0.5, 0);
