@@ -15,16 +15,6 @@ pairs.playState = {
         this.boardHeight = 6;
 
         game.global.totalMoves = 0;
-        // this.scoreText = game.add.text(
-        //     20,
-        //     5,
-        //     'Moves: ' + this.totalMoves,
-        //     {
-        //         font: '20px Merriweather',
-        //         fill: '#fff',
-        //         align: 'center'
-        //     }
-        // );
 
         this.deadAlpha = 0.4;
 
