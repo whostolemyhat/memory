@@ -155,13 +155,11 @@ pairs.playState = {
 
             tile.sprite = game.add.sprite(coords.x, coords.y, tile.shape);
             tile.sprite.tint = Phaser.Color.getColor(tile.colour.r, tile.colour.g, tile.colour.b);
-            tile.sprite.scale = { x: 0.3, y: 0.3 };
 
             tile.box = game.add.sprite(coords.x, coords.y, 'box');
             tile.box.tint = Phaser.Color.getColor(self.darkGrey.r, self.darkGrey.g, self.darkGrey.b);
             tile.box.width = 0;
             tile.box.inputEnabled = true;
-            tile.box.scale.y = 0.3;
         });
 
       
@@ -373,10 +371,10 @@ pairs.playState = {
 
         // animate first sprite
         game.add.tween(self.firstSelected.sprite).to({ alpha: self.deadAlpha, angle: 360 }, 300).start();
-        game.add.tween(self.firstSelected.sprite.scale).to({ x: 0.2, y: 0.2 }, 300).start();
+        game.add.tween(self.firstSelected.sprite.scale).to({ x: 0.8, y: 0.8 }, 300).start();
 
         game.add.tween(self.secondSelected.sprite).to({ alpha: self.deadAlpha, angle: -360 }, 300).start();
-        game.add.tween(self.secondSelected.sprite.scale).to({ x: 0.2, y: 0.2 }, 300).start();
+        game.add.tween(self.secondSelected.sprite.scale).to({ x: 0.8, y: 0.8 }, 300).start();
 
         self.emitter.x = self.firstSelected.sprite.x;
         self.emitter.y = self.firstSelected.sprite.y;

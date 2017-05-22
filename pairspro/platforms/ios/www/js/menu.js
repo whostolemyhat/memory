@@ -11,9 +11,6 @@ pairs.menuState = {
 
         this.finalEmitter = game.add.emitter(game.world.centerX, 20, 15);
         this.finalEmitter.makeParticles(pairs.allShapes);
-        this.finalEmitter.minParticleScale = 0.3;
-        this.finalEmitter.maxParticleScale = 0.3;
-
         this.finalEmitter.forEach(function(particle) {
             var colour = pairs.pickColour();
             particle.tint = Phaser.Color.getColor(colour.r, colour.g, colour.b);

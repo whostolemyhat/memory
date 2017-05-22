@@ -1,0 +1,13 @@
+{
+    "name": "uk.dontexpectanythingsensible.pairspro",
+    "version": "2.0.0",
+    "displayName": "Pairs",
+    "cordova": {
+        "platforms": [
+            "ios"
+        ]
+    },
+    "dependencies": {
+        "cordova-ios": "^4.4.0"
+    }
+}

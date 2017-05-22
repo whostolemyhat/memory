@@ -69,7 +69,7 @@
     NSString *hostName = DEFAULT_HOST_NAME;
     
     if (argc >= 1) {
-        NSDictionary* options = [args objectAtIndex:0];
+        NSDictionary* options = [args objectAtIndex:0 withDefault:[NSNull null]];
         if ((NSNull *)options == [NSNull null]) {
             hostName = DEFAULT_HOST_NAME;
         } else {
@@ -109,7 +109,7 @@
     BOOL isParamsOk = false;
     
     if (argc >= 1) {
-        NSDictionary* options = [args objectAtIndex:0];
+        NSDictionary* options = [args objectAtIndex:0 withDefault:[NSNull null]];
         if ((NSNull *)options == [NSNull null]) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Bad argument options."];
 
@@ -164,7 +164,7 @@
     NSUInteger argc = [args count];
     
     if (argc >= 1) {
-        NSDictionary* options = [args objectAtIndex:0];
+        NSDictionary* options = [args objectAtIndex:0 withDefault:[NSNull null]];
         if ((NSNull *)options == [NSNull null]) {
             // Do nothing
         } else {
@@ -196,7 +196,7 @@
     NSUInteger argc = [args count];
     
     if (argc >= 1) {
-        NSDictionary* options = [args objectAtIndex:0 ];
+        NSDictionary* options = [args objectAtIndex:0 withDefault:[NSNull null]];
         if ((NSNull *)options == [NSNull null]) {
             // Do nothing
         } else {

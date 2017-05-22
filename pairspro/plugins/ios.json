@@ -7,18 +7,19 @@
         "files": {}
     },
     "installed_plugins": {
-        "com.connectivity.monitor": {
-            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
-        },
-        "cordova-plugin-googleplayservices": {
-            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
-        },
-        "cordova-plugin-extension": {
-            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
-        },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "com.connectivity.monitor": {
+            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
+        },
+        "com.google.playservices": {
+            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
+        },
+        "cordova-plugin-extension": {
+            "PACKAGE_NAME": "uk.dontexpectanythingsensible.pairspro"
+        }
+    }
 }

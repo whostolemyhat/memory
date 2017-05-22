@@ -8,8 +8,6 @@
     <string>${PRODUCT_NAME}</string>
     <key>CFBundleExecutable</key>
     <string>${EXECUTABLE_NAME}</string>
-    <key>CFBundleIconFile</key>
-    <string>icon.png</string>
     <key>CFBundleIcons</key>
     <dict/>
     <key>CFBundleIcons~ipad</key>
@@ -30,6 +28,22 @@
     <string>2.0.0</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
+    <key>NSMainNibFile</key>
+    <string/>
+    <key>NSMainNibFile~ipad</key>
+    <string/>
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+      <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    </array>
+    <key>UISupportedInterfaceOrientations~ipad</key>
+    <array>
+      <string>UIInterfaceOrientationPortrait</string>
+      <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    </array>
+    <key>UIRequiresFullScreen</key>
+    <true/>
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSExceptionDomains</key>
@@ -47,25 +61,9 @@
       <key>NSAllowsArbitraryLoads</key>
       <true/>
     </dict>
-    <key>NSMainNibFile</key>
-    <string></string>
-    <key>NSMainNibFile~ipad</key>
-    <string></string>
-    <key>UIRequiresFullScreen</key>
-    <true/>
     <key>UIInterfaceOrientation</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>
-    </array>
-    <key>UISupportedInterfaceOrientations</key>
-    <array>
-      <string>UIInterfaceOrientationPortrait</string>
-      <string>UIInterfaceOrientationPortraitUpsideDown</string>
-    </array>
-    <key>UISupportedInterfaceOrientations~ipad</key>
-    <array>
-      <string>UIInterfaceOrientationPortrait</string>
-      <string>UIInterfaceOrientationPortraitUpsideDown</string>
     </array>
   </dict>
 </plist>
