@@ -14,4 +14,7 @@
     <allow-navigation href="https://play.google.com/*" />
     <allow-navigation href="https://twitter.com/*" />
     <preference name="orientation" value="portrait" />
+
+    <platform name="ios">
+    </platform>
 </widget>
